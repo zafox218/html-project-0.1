@@ -1,53 +1,93 @@
-/* Modern Typography System */
+/* Enhanced Modern Typography System - Multi-language Support */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
-/* Variable Font Loading for Performance */
+/* Enhanced Variable Font Loading for Performance */
 @supports (font-variation-settings: normal) {
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap');
 }
 
-/* Font Face Declarations */
+/* Enhanced Font Face Declarations */
 html {
   font-family: var(--font-family-sans);
   -webkit-text-size-adjust: 100%;
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-  font-variant-ligatures: common-ligatures;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
+  font-variant-ligatures: common-ligatures contextual;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
 }
 
-/* Heading Styles */
+/* Enhanced Heading Styles */
 .font-display {
   font-family: var(--font-family-display);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.025em;
+  font-feature-settings: "ss01" 1, "ss02" 1;
 }
 
 .font-sans {
   font-family: var(--font-family-sans);
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .font-mono {
   font-family: var(--font-family-mono);
+  font-feature-settings: "kern" 1;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Text Size Utility Classes */
-.text-xs { font-size: var(--text-xs); }
-.text-sm { font-size: var(--text-sm); }
-.text-base { font-size: var(--text-base); }
-.text-lg { font-size: var(--text-lg); }
-.text-xl { font-size: var(--text-xl); }
-.text-2xl { font-size: var(--text-2xl); }
-.text-3xl { font-size: var(--text-3xl); }
-.text-4xl { font-size: var(--text-4xl); }
-.text-5xl { font-size: var(--text-5xl); }
-.text-6xl { font-size: var(--text-6xl); }
+/* Enhanced Text Size Utility Classes */
+.text-xs { 
+  font-size: var(--text-xs); 
+  line-height: 1.4;
+}
+.text-sm { 
+  font-size: var(--text-sm); 
+  line-height: 1.45;
+}
+.text-base { 
+  font-size: var(--text-base); 
+  line-height: 1.5;
+}
+.text-lg { 
+  font-size: var(--text-lg); 
+  line-height: 1.5;
+}
+.text-xl { 
+  font-size: var(--text-xl); 
+  line-height: 1.4;
+}
+.text-2xl { 
+  font-size: var(--text-2xl); 
+  line-height: 1.3;
+}
+.text-3xl { 
+  font-size: var(--text-3xl); 
+  line-height: 1.25;
+}
+.text-4xl { 
+  font-size: var(--text-4xl); 
+  line-height: 1.2;
+}
+.text-5xl { 
+  font-size: var(--text-5xl); 
+  line-height: 1.1;
+}
+.text-6xl { 
+  font-size: var(--text-6xl); 
+  line-height: 1;
+}
 
-/* Font Weight Classes */
+/* Enhanced Font Weight Classes */
 .font-thin { font-weight: 100; }
 .font-extralight { font-weight: 200; }
 .font-light { font-weight: 300; }
@@ -58,7 +98,7 @@ html {
 .font-extrabold { font-weight: 800; }
 .font-black { font-weight: 900; }
 
-/* Line Height Classes */
+/* Enhanced Line Height Classes */
 .leading-none { line-height: 1; }
 .leading-tight { line-height: 1.25; }
 .leading-snug { line-height: 1.375; }
@@ -66,7 +106,7 @@ html {
 .leading-relaxed { line-height: 1.625; }
 .leading-loose { line-height: 2; }
 
-/* Letter Spacing */
+/* Enhanced Letter Spacing */
 .tracking-tighter { letter-spacing: -0.05em; }
 .tracking-tight { letter-spacing: -0.025em; }
 .tracking-normal { letter-spacing: 0em; }
@@ -74,11 +114,131 @@ html {
 .tracking-wider { letter-spacing: 0.05em; }
 .tracking-widest { letter-spacing: 0.1em; }
 
-/* RTL Support */
+/* Enhanced RTL Support */
 [dir="rtl"] {
-  font-family: var(--font-family-sans);
+  font-family: "Tajawal", "Cairo", var(--font-family-sans);
 }
 
 [dir="rtl"] .font-display {
-  font-family: "Tajawal", var(--font-family-display);
+  font-family: "Amiri", "Tajawal", var(--font-family-display);
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .font-mono {
+  font-family: "Courier New", monospace;
+}
+
+/* New: Enhanced Arabic Text Support */
+[dir="rtl"] {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-align: right;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: "Amiri", "Tajawal", serif;
+  font-weight: 700;
+}
+
+/* New: Improved Text Rendering */
+.text-crisp {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+}
+
+.text-smooth {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* New: Typography Responsive Scaling */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .font-display {
+    letter-spacing: -0.01em;
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* New: Print Typography */
+@media print {
+  html {
+    font-size: 12pt;
+    font-family: Georgia, serif;
+  }
+  
+  .font-display {
+    font-family: Georgia, serif;
+  }
+  
+  .font-sans {
+    font-family: Arial, sans-serif;
+  }
+}
+
+/* New: Enhanced Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* New: High Contrast Typography */
+@media (prefers-contrast: high) {
+  html {
+    font-weight: 600;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+  }
+  
+  .font-light,
+  .font-extralight,
+  .font-thin {
+    font-weight: 500;
+  }
+}
+
+/* New: Large Text Support */
+@media (min-width: 1600px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+/* New: Dynamic Font Loading */
+.font-loaded .font-display {
+  font-family: var(--font-family-display);
+}
+
+.font-loaded .font-sans {
+  font-family: var(--font-family-sans);
+}
+
+/* New: Text Selection Enhancement */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  text-shadow: none;
 }

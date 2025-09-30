@@ -1,6 +1,6 @@
-/* Modern 2025 Design System - Marmara Red Edition */
+/* Modern 2025 Design System - Marmara Red Edition - Enhanced */
 :root {
-  /* Red-Based Color Palette Inspired by Brand Image */
+  /* Enhanced Red-Based Color Palette */
   --primary-50: #fef2f2;
   --primary-100: #fee2e2;
   --primary-200: #fecaca;
@@ -13,7 +13,7 @@
   --primary-900: #7f1d1d;
   --primary-950: #450a0a;
 
-  /* Secondary Colors */
+  /* Enhanced Secondary Colors */
   --secondary-50: #f8fafc;
   --secondary-100: #f1f5f9;
   --secondary-200: #e2e8f0;
@@ -26,15 +26,17 @@
   --secondary-900: #0f172a;
   --secondary-950: #020617;
 
-  /* Accent Colors */
+  /* Enhanced Accent Colors */
   --accent-red: #dc2626;
   --accent-dark-red: #991b1b;
   --accent-orange: #ea580c;
   --accent-amber: #d97706;
   --accent-emerald: #059669;
   --accent-cyan: #0891b2;
+  --accent-purple: #7c3aed;
+  --accent-pink: #db2777;
 
-  /* Neutral Scale */
+  /* Enhanced Neutral Scale */
   --neutral-0: #ffffff;
   --neutral-50: #fafafa;
   --neutral-100: #f5f5f5;
@@ -48,7 +50,7 @@
   --neutral-900: #171717;
   --neutral-950: #0a0a0a;
 
-  /* Semantic Colors */
+  /* Enhanced Semantic Colors */
   --color-primary: var(--primary-600);
   --color-secondary: var(--secondary-700);
   --color-accent: var(--accent-red);
@@ -60,12 +62,14 @@
   --color-success: var(--accent-emerald);
   --color-warning: var(--accent-amber);
   --color-error: var(--primary-500);
+  --color-info: var(--accent-cyan);
 
-  /* Typography Scale */
-  --font-family-display: "Playfair Display", "Poppins", serif;
-  --font-family-sans: "Inter", "Tajawal", system-ui, sans-serif;
+  /* Enhanced Typography Scale */
+  --font-family-display: "Playfair Display", "Amiri", serif;
+  --font-family-sans: "Inter", "Tajawal", "Cairo", system-ui, sans-serif;
   --font-family-mono: "JetBrains Mono", "Courier New", monospace;
 
+  /* Responsive Typography */
   --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
   --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
@@ -77,7 +81,7 @@
   --text-5xl: clamp(3rem, 2.5rem + 2.5vw, 3.75rem);
   --text-6xl: clamp(3.75rem, 3rem + 3.75vw, 4.5rem);
 
-  /* Modern Spacing System */
+  /* Enhanced Spacing System */
   --space-px: 1px;
   --space-0: 0;
   --space-0-5: 0.125rem;
@@ -114,7 +118,7 @@
   --space-80: 20rem;
   --space-96: 24rem;
 
-  /* Advanced Border Radius */
+  /* Enhanced Border Radius */
   --radius-none: 0;
   --radius-sm: 0.125rem;
   --radius-DEFAULT: 0.25rem;
@@ -123,9 +127,10 @@
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
   --radius-full: 9999px;
 
-  /* Modern Shadow System with Red Tints */
+  /* Enhanced Shadow System */
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -135,12 +140,14 @@
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
   
-  /* Colored Shadows */
+  /* Enhanced Colored Shadows */
   --shadow-primary: 0 10px 15px -3px rgb(220 38 38 / 0.3), 0 4px 6px -4px rgb(220 38 38 / 0.3);
   --shadow-accent: 0 10px 15px -3px rgb(220 38 38 / 0.4), 0 4px 6px -4px rgb(220 38 38 / 0.4);
   --shadow-red-glow: 0 0 20px rgb(220 38 38 / 0.3);
+  --shadow-blue-glow: 0 0 20px rgb(59 130 246 / 0.3);
+  --shadow-green-glow: 0 0 20px rgb(34 197 94 / 0.3);
 
-  /* Animation & Transitions */
+  /* Enhanced Animation & Transitions */
   --duration-75: 75ms;
   --duration-100: 100ms;
   --duration-150: 150ms;
@@ -156,15 +163,17 @@
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Container Sizes */
+  /* Enhanced Container Sizes */
   --container-sm: 640px;
   --container-md: 768px;
   --container-lg: 1024px;
   --container-xl: 1280px;
   --container-2xl: 1536px;
 
-  /* Z-Index Scale */
+  /* Enhanced Z-Index Scale */
   --z-0: 0;
   --z-10: 10;
   --z-20: 20;
@@ -180,16 +189,43 @@
   --z-tooltip: 600;
   --z-toast: 700;
 
-  /* Red Gradient Presets */
+  /* Enhanced Gradient Presets */
   --gradient-primary: linear-gradient(135deg, var(--primary-500), var(--primary-700));
   --gradient-accent: linear-gradient(135deg, var(--accent-red), var(--accent-dark-red));
   --gradient-warm: linear-gradient(135deg, var(--primary-400), var(--accent-orange));
   --gradient-dark: linear-gradient(135deg, var(--secondary-800), var(--secondary-900));
   --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
   --gradient-hero: linear-gradient(135deg, rgba(220, 38, 38, 0.9), rgba(153, 27, 27, 0.95));
+  --gradient-rainbow: linear-gradient(135deg, var(--accent-red), var(--accent-orange), var(--accent-amber));
+  --gradient-ocean: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+
+  /* New: Advanced Breakpoints */
+  --bp-xs: 320px;
+  --bp-sm: 576px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+  --bp-2xl: 1400px;
+  --bp-3xl: 1600px;
+
+  /* New: Safe Area Support */
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-right: env(safe-area-inset-right);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  --safe-area-inset-left: env(safe-area-inset-left);
+
+  /* New: Modern Grid System */
+  --grid-cols-1: repeat(1, minmax(0, 1fr));
+  --grid-cols-2: repeat(2, minmax(0, 1fr));
+  --grid-cols-3: repeat(3, minmax(0, 1fr));
+  --grid-cols-4: repeat(4, minmax(0, 1fr));
+  --grid-cols-5: repeat(5, minmax(0, 1fr));
+  --grid-cols-6: repeat(6, minmax(0, 1fr));
+  --grid-cols-auto: repeat(auto-fit, minmax(250px, 1fr));
+  --grid-cols-responsive: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
 }
 
-/* Dark Mode Support */
+/* Enhanced Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--secondary-900);
@@ -197,14 +233,60 @@
     --color-text: var(--neutral-100);
     --color-text-muted: var(--neutral-400);
     --color-border: var(--secondary-700);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
   }
 }
 
-/* Print Styles */
+/* Enhanced High Contrast Mode */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text: #000000;
+    --color-background: #ffffff;
+    --color-border: #000000;
+    --shadow-DEFAULT: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+  }
+}
+
+/* Enhanced Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-75: 0ms;
+    --duration-100: 0ms;
+    --duration-150: 0ms;
+    --duration-200: 0ms;
+    --duration-300: 0ms;
+    --duration-500: 0ms;
+    --duration-700: 0ms;
+    --duration-1000: 0ms;
+  }
+}
+
+/* Enhanced Print Styles */
 @media print {
   :root {
     --color-background: white;
     --color-text: black;
+    --color-primary: black;
     --shadow-DEFAULT: none;
+    --gradient-primary: none;
   }
+}
+
+/* New: Custom Properties for Dynamic Theming */
+:root {
+  --theme-hue: 0;
+  --theme-saturation: 84%;
+  --theme-lightness: 45%;
+  --theme-color: hsl(var(--theme-hue), var(--theme-saturation), var(--theme-lightness));
+}
+
+/* New: Fluid Typography Scale */
+:root {
+  --fluid-min-width: 320;
+  --fluid-max-width: 1200;
+  --fluid-screen: 100vw;
+  --fluid-bp: calc(
+    (var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) /
+    (var(--fluid-max-width) - var(--fluid-min-width))
+  );
 }
