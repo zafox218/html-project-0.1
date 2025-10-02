@@ -12,7 +12,7 @@
   --color-primary-700: #b91c1c;
   --color-primary-800: #991b1b;
   --color-primary-900: #7f1d1d;
-
+  
   /* Neutral Colors */
   --color-background: #ffffff;
   --color-surface: #f8fafc;
@@ -246,4 +246,81 @@
     --font-display: swap;
   }
 }
---color-text
+
+/* Layout Container Fix - More Specific */
+.site-header > .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Prevent navbar collapse - More Specific */
+.nav-menu > li {
+  flex-shrink: 0;
+  list-style: none;
+}
+
+/* Better alignment - More Specific and Safe */
+.site-header .inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+  gap: var(--space-4);
+  position: relative;
+}
+
+/* Logo text fix - More Specific */
+.brand .brand-text {
+  font-family: var(--font-family-display);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.3rem;
+  display: inline-block;
+}
+
+/* Additional fixes to prevent overlap */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  margin-left: auto;
+  z-index: 10;
+}
+
+/* Ensure navigation doesn't interfere with header actions */
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: calc(100% - 400px); /* Leave space for logo and actions */
+  margin: 0 var(--space-4);
+}
+
+/* Language toggle specific fix */
+.lang-toggle {
+  display: flex;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 11;
+}
+
+/* Header CTA button specific fix */
+.header-cta {
+  position: relative;
+  z-index: 11;
+  white-space: nowrap;
+}
+
+/* Brand specific fix */
+.brand {
+  position: relative;
+  z-index: 11;
+  flex-shrink: 0;
+}
