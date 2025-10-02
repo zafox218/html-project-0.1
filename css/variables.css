@@ -16,10 +16,11 @@
   /* Neutral Colors */
   --color-background: #ffffff;
   --color-surface: #f8fafc;
-  --color-text: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
-  --color-border: #e2e8f0;
+  --color-text-down: #ffffff;
+  --color-text-up: #170808;
+  --color-text-secondary: #705b5b;
+  --color-text-muted: #6b6060;
+  --color-border: #000000;
   --color-border-light: #f1f5f9;
 
   /* Enhanced Gradients */
@@ -198,7 +199,7 @@
     --color-background: #0f172a;
     --color-surface: #1e293b;
     --color-text: #f1f5f9;
-    --color-text-secondary: #cbd5e1;
+    --color-text-secondary: #210909;
     --color-text-muted: #94a3b8;
     --color-border: #334155;
     --color-border-light: #475569;
@@ -231,7 +232,7 @@
 @media (prefers-contrast: high) {
   :root {
     --color-text: #000000;
-    --color-text-secondary: #333333;
+    --color-text-secondary: #191313;
     --color-border: #000000;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -245,3 +246,4 @@
     --font-display: swap;
   }
 }
+--color-text

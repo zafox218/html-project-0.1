@@ -493,9 +493,27 @@ body {
   line-height: 1.2;
 }
 
+
+.section-title-up {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--color-text-up);
+  margin-bottom: var(--space-6);
+  line-height: 1.2;
+}
+
+.section-title-down {
+  font-family: var(--font-family-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--color-text-down);
+  margin-bottom: var(--space-6);
+  line-height: 1.2;
+}
 .section-description {
   font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-  color: var(--color-text-secondary);
+  color: var(--color-text-down);
   line-height: 1.7;
   max-width: 600px;
   margin: 0 auto;
@@ -713,7 +731,7 @@ body {
 .about-text p {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: var(--color-text-secondary);
+  color: var(--color-text-down);
   margin-bottom: var(--space-6);
 }
 
