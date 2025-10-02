@@ -13,85 +13,34 @@
   <meta name="author" content="Marmara Supplies">
   <meta name="robots" content="index, follow">
   
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="مرمرة لمستلزمات الرخام والجرانيت">
-  <meta property="og:description" content="أدوات احترافية وجودة استثنائية وخبرة موثوقة">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://marmara-supplies.ly">
-  <meta property="og:image" content="./img/logo1.jpg">
-  <meta property="og:site_name" content="Marmara Supplies">
-  <meta property="og:locale" content="ar_LY">
-  
-  <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="مرمرة لمستلزمات الرخام والجرانيت">
-  <meta name="twitter:description" content="أدوات احترافية وجودة استثنائية وخبرة موثوقة">
-  <meta name="twitter:image" content="./img/logo1.jpg">
-  
-  <!-- Enhanced Preload Critical Resources -->
-  <link rel="preload" href="./css/variables.css" as="style">
-  <link rel="preload" href="./css/fonts.css" as="style">
-  <link rel="preload" href="./css/site.css" as="style">
-  <link rel="preload" href="./img/logo1.jpg" as="image">
-  <link rel="preload" href="./img/bg-main.jpg" as="image">
+  <!-- GSAP Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   
   <!-- Enhanced Stylesheets -->
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/site.css">
   
-  <!-- Enhanced Favicon and Icons -->
+  <!-- Enhanced Favicon -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="./img/logo1.jpg">
-  <link rel="icon" type="image/png" sizes="32x32" href="./img/logo1.jpg">
-  <link rel="icon" type="image/png" sizes="16x16" href="./img/logo1.jpg">
-  
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="./manifest.json">
-  
-  <!-- Enhanced Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Marmara Supplies",
-    "description": "Leading marble and granite tools supplier in Libya",
-    "url": "https://marmara-supplies.ly",
-    "telephone": "+218-51-234-5678",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "شارع طرابلس الرئيسي",
-      "addressLocality": "مصراتة",
-      "addressCountry": "LY"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "32.3745",
-      "longitude": "15.0919"
-    },
-    "openingHours": "Mo,Tu,We,Th,Sa 08:00-18:00",
-    "sameAs": [
-      "https://facebook.com/marmarasupplies",
-      "https://instagram.com/marmarasupplies"
-    ]
-  }
-  </script>
 </head>
 
 <body>
-  <!-- Enhanced Skip Link for Accessibility -->
+  <!-- Skip Link for Accessibility -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <!-- Enhanced Scroll Progress Indicator -->
+  <!-- Scroll Progress Indicator -->
   <div class="scroll-progress">
     <div class="scroll-progress-bar"></div>
   </div>
 
-  <!-- FIXED Enhanced Responsive Header -->
+  <!-- Enhanced Header -->
   <header class="site-header" role="banner">
     <div class="container">
       <div class="inner">
-        <!-- Enhanced Brand Logo -->
+        <!-- Brand Logo -->
         <a href="#home" class="brand" aria-label="Marmara Home">
           <div class="brand-logo">
             <img src="./img/logo1.jpg" alt="Marmara Logo" width="50" height="50" loading="eager">
@@ -99,40 +48,22 @@
           <span class="brand-text" data-i18n="brand-hero-title">مرمرة™</span>
         </a>
 
-        <!-- Enhanced Navigation Menu -->
+        <!-- Navigation Menu -->
         <nav class="nav" role="navigation" aria-label="Main navigation">
           <ul class="nav-menu" id="nav-menu">
             <li><a href="#home" class="nav-link active" data-i18n="nav-home">الرئيسية</a></li>
             <li><a href="#about" class="nav-link" data-i18n="nav-about">من نحن</a></li>
             <li><a href="#products" class="nav-link" data-i18n="nav-products">المنتجات</a></li>
             <li><a href="#gallery" class="nav-link" data-i18n="nav-gallery">المعارض</a></li>
+            <li><a href="#slider-section" class="nav-link" data-i18n="nav-slider">عرض الشرائح</a></li>
             <li><a href="#map" class="nav-link" data-i18n="nav-map">فروعنا</a></li>
             <li><a href="#contact" class="nav-link" data-i18n="nav-contact">تواصل معنا</a></li>
-            
-            <!-- Mobile Language Toggle (shown only on mobile) -->
-            <li class="mobile-only">
-              <div class="lang-toggle" role="group" aria-label="Language selection">
-                <button class="lang-btn active" data-lang="ar" aria-pressed="true">
-                  <span>العربية</span>
-                </button>
-                <button class="lang-btn" data-lang="en" aria-pressed="false">
-                  <span>English</span>
-                </button>
-              </div>
-            </li>
-            
-            <!-- Mobile CTA Button (shown only on mobile) -->
-            <li class="mobile-only">
-              <a href="#contact" class="btn btn-primary header-cta" data-i18n="header-cta">
-                ابدأ الآن
-              </a>
-            </li>
           </ul>
         </nav>
 
-        <!-- Enhanced Header Actions -->
+        <!-- Header Actions -->
         <div class="header-actions">
-          <!-- Enhanced Language Toggle (desktop only) -->
+          <!-- Language Toggle -->
           <div class="lang-toggle desktop-only" role="group" aria-label="Language selection">
             <button class="lang-btn active" data-lang="ar" aria-pressed="true">
               <span>العربية</span>
@@ -142,13 +73,13 @@
             </button>
           </div>
 
-          <!-- Enhanced CTA Button (desktop only) -->
+          <!-- CTA Button -->
           <a href="#contact" class="btn btn-primary btn-sm header-cta desktop-only" data-i18n="header-cta">
             ابدأ الآن
           </a>
 
-          <!-- Enhanced Mobile Menu Toggle -->
-          <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+          <!-- Mobile Menu Toggle -->
+          <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu">
             <span></span>
             <span></span>
             <span></span>
@@ -161,10 +92,10 @@
     <div class="nav-overlay"></div>
   </header>
 
-  <!-- Enhanced Main Content -->
+  <!-- Main Content -->
   <main id="main-content" role="main">
     
-    <!-- Enhanced Brand Hero Section -->
+    <!-- Brand Hero Section -->
     <section id="home" class="brand-hero" role="banner">
       <div class="brand-floating-shapes" aria-hidden="true">
         <div class="brand-shape"></div>
@@ -194,7 +125,122 @@
       </div>
     </section>
 
-    <!-- Enhanced About Section -->
+    <!-- Enhanced GSAP Image Slider Section -->
+    <section id="slider-section" class="section slider-section" role="region" aria-labelledby="slider-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">معرض الأدوات</span>
+          <h2 id="slider-title" class="section-title">
+            أدوات قطع الجلخ المتخصصة
+          </h2>
+          <p class="section-description">
+            استكشف مجموعتنا المتميزة من أدوات القطع والجلخ عالية الجودة
+          </p>
+        </div>
+
+        <!-- GSAP Slider Container -->
+        <div class="gsap-slider" id="gsap-slider">
+          <div class="slider-track">
+            <!-- Slide 1 -->
+            <div class="slide active" data-slide="0">
+              <div class="slide-image">
+                <img src="./img/ادوات قطع جلخ20.jpg" alt="أدوات قطع جلخ 20" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 20</h3>
+                <p class="slide-description">أدوات قطع وجلخ عالية الدقة مقاس 20</p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="slide" data-slide="1">
+              <div class="slide-image">
+                <img src="./img/ادوات قطع جلخ21.jpg" alt="أدوات قطع جلخ 21" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 21</h3>
+                <p class="slide-description">أدوات قطع وجلخ متقدمة مقاس 21</p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="slide" data-slide="2">
+              <div class="slide-image">
+                <img src="./img/ادوات قطع جلخ22.jpg" alt="أدوات قطع جلخ 22" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 22</h3>
+                <p class="slide-description">أدوات قطع وجلخ احترافية مقاس 22</p>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="slide" data-slide="3">
+              <div class="slide-image">
+                <img src="./img/ادوات قطع جلخ24.jpg" alt="أدوات قطع جلخ 24" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 24</h3>
+                <p class="slide-description">أدوات قطع وجلخ عالية الجودة مقاس 24</p>
+              </div>
+            </div>
+
+            <!-- Slide 5 -->
+            <div class="slide" data-slide="4">
+              <div class="slide-image">
+                <img src="./img/ادوات قطع جلخ25.jpg" alt="أدوات قطع جلخ 25" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 25</h3>
+                <p class="slide-description">أدوات قطع وجلخ متطورة مقاس 25</p>
+              </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="slide" data-slide="5">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 26.jpg" alt="أدوات قطع جلخ 26" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 26</h3>
+                <p class="slide-description">أدوات قطع وجلخ متميزة مقاس 26</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Navigation -->
+          <div class="slider-navigation">
+            <button class="nav-btn prev-btn" aria-label="Previous slide">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="nav-btn next-btn" aria-label="Next slide">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Slider Indicators -->
+          <div class="slider-indicators">
+            <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+            <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+            <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
+            <button class="indicator" data-slide="5" aria-label="Go to slide 6"></button>
+          </div>
+
+          <!-- Slider Progress -->
+          <div class="slider-progress">
+            <div class="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
     <section id="about" class="section" role="region" aria-labelledby="about-title">
       <div class="container">
         <div class="section-header">
@@ -227,7 +273,7 @@
       </div>
     </section>
 
-    <!-- Enhanced Stats Section -->
+    <!-- Stats Section -->
     <section class="section stats" role="region" aria-label="Company statistics">
       <div class="container">
         <div class="stats-grid">
@@ -251,7 +297,7 @@
       </div>
     </section>
 
-    <!-- Enhanced Products Section -->
+    <!-- Products Section -->
     <section id="products" class="section" role="region" aria-labelledby="products-title">
       <div class="container">
         <div class="section-header">
@@ -354,346 +400,107 @@
               </div>
             </div>
           </div>
-
-          <!-- Additional Machine Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات قطع مكينة.jpg" 
-                 alt="أدوات قطع ماكينة متقدمة" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title">أدوات ماكينة متقدمة</h3>
-              <p class="card-description">
-                تقنيات متطورة في أدوات القطع للماكينات الحديثة
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="machine" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- FIXED Enhanced Gallery Section with CORRECT Arabic Image Names -->
+    <!-- Gallery Section -->
     <section id="gallery" class="section" role="region" aria-labelledby="gallery-title">
       <div class="container">
         <div class="section-header">
-          <span class="section-eyebrow" data-i18n="gallery-eyebrow">معرض تفاعلي</span>
-          <h2 id="gallery-title" class="section-title" data-i18n="gallery-title">
+          <span class="section-eyebrow">معرض تفاعلي</span>
+          <h2 id="gallery-title" class="section-title">
             استكشف منتجاتنا بالتفصيل
           </h2>
         </div>
 
-        <!-- FIXED Filter Bar with Working Buttons -->
-        <div class="filter-bar" role="tablist" aria-label="Product categories">
-          <button class="filter-btn active" data-filter="all" 
-                  role="tab" aria-selected="true" data-i18n="filter-all">
-            جميع المنتجات
-          </button>
-          <button class="filter-btn" data-filter="machine" 
-                  role="tab" aria-selected="false" data-i18n="filter-machine">
-            ماكينة
-          </button>
-          <button class="filter-btn" data-filter="grind" 
-                  role="tab" aria-selected="false" data-i18n="filter-grind">
-            جلخ
-          </button>
-          <button class="filter-btn" data-filter="porcelain" 
-                  role="tab" aria-selected="false" data-i18n="filter-porcelain">
-            بورسلين
-          </button>
-          <button class="filter-btn" data-filter="drill" 
-                  role="tab" aria-selected="false" data-i18n="filter-drill">
-            ثقب
-          </button>
-          <button class="filter-btn" data-filter="misc" 
-                  role="tab" aria-selected="false" data-i18n="filter-misc">
-            أخرى
-          </button>
+        <!-- Filter Buttons -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">جميع المنتجات</button>
+          <button class="filter-btn" data-filter="machine">ماكينة</button>
+          <button class="filter-btn" data-filter="grind">جلخ</button>
+          <button class="filter-btn" data-filter="porcelain">بورسلين</button>
+          <button class="filter-btn" data-filter="drill">ثقب</button>
+          <button class="filter-btn" data-filter="misc">أخرى</button>
         </div>
 
-        <!-- FIXED Gallery Grids - Machine Tools -->
-        <div class="gallery visible" data-category="machine" role="tabpanel">
-          <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع مكينة.jpg" alt="أدوات قطع مكينة" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات قطع ماكينة احترافية</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين1.jpg" alt="أدوات قطع ماكينة 1" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>ماكينات القطع الصناعية</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى.jpg" alt="أدوات قطع ماكينة 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات متقدمة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى2.jpg" alt="أدوات قطع ماكينة 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أداء عالي الجودة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى3.jpg" alt="أدوات قطع ماكينة متقدمة" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تكنولوجيا متطورة</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FIXED Gallery Grids - Grinding Tools -->
-        <div class="gallery" data-category="grind" role="tabpanel">
-          <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع جلخ1.jpg" alt="أدوات قطع جلخ 1" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات الجلخ المتخصصة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع جلخ2.jpg" alt="أدوات قطع جلخ 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>دقة في القطع والجلخ</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع جلخ3.jpg" alt="أدوات قطع جلخ 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات جلخ متطورة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع جلخ4.jpg" alt="أدوات قطع جلخ 4" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات جلخ احترافية</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين.jpg" alt="أدوات ثقب رخام وجرانيت وبورسلين" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات الثقب المتقدمة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين2.jpg" alt="أدوات ثقب رخام وجرانيت وبورسلين 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات الثقب الحديثة</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FIXED Gallery Grids - Porcelain Tools -->
-        <div class="gallery" data-category="porcelain" role="tabpanel">
-          <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين1.jpg" alt="أدوات بورسلين 1" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات بورسلين متخصصة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين2.jpg" alt="أدوات بورسلين 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات قطع متقدمة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين3.jpg" alt="أدوات بورسلين 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>دقة في التفاصيل</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين1.jpg" alt="أدوات قطع بورسلين 1" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>قطع البورسلين المتقدم</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين2.jpg" alt="أدوات قطع بورسلين 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>دقة في التنفيذ</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات بورسلين3.jpg" alt="أدوات قطع بورسلين 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>جودة استثنائية</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FIXED Gallery Grids - Drilling Tools -->
-        <div class="gallery" data-category="drill" role="tabpanel">
-          <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين.jpg" alt="أدوات ثقب رخام وجرانيت وبورسلين" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات ثقب شاملة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين2.jpg" alt="أدوات ثقب رخام وجرانيت وبورسلين 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات ثقب متطورة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين3.jpg" alt="أدوات ثقب رخام وجرانيت وبورسلين 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>دقة في الثقب</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع حله1.jpg" alt="أدوات قطع حلة 1" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات القطع المتخصصة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع حله2.jpg" alt="أدوات قطع حلة 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>دقة في القطع</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات قطع حله3.jpg" alt="أدوات قطع حلة 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات متطورة</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- FIXED Gallery Grids - Miscellaneous Tools -->
-        <div class="gallery" data-category="misc" role="tabpanel">
-          <div class="gallery-grid">
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى7.jpg" alt="أدوات متنوعة اخرى" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات متنوعة مساعدة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى2.jpg" alt="أدوات متنوعة اخرى 2" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تشكيلة متنوعة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى3.jpg" alt="أدوات متنوعة اخرى 3" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>حلول شاملة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى6.jpg" alt="أدوات متنوعة اخرى 4" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات مساعدة متطورة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى5.jpg" alt="أدوات متنوعة اخرى 5" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>تقنيات حديثة</h5>
-              </div>
-            </div>
-            <div class="gallery-item">
-              <img src="./img/ادوات متنوعة اخرى4.jpg" alt="أدوات قطع حلة 4" loading="lazy" width="300" height="300">
-              <div class="gallery-overlay">
-                <h5>أدوات احترافية متنوعة</h5>
-              </div>
-            </div>
+        <!-- Gallery Grid -->
+        <div class="gallery visible">
+          <div class="gallery-grid" id="gallery-grid">
+            <!-- Gallery items will be populated by JavaScript -->
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Enhanced Map Section -->
-    <section id="map" class="section" role="region" aria-labelledby="map-title">
+    <!-- Map Section -->
+    <section id="map" class="section">
       <div class="container">
         <div class="section-header">
-          <h2 id="map-title" class="section-title" data-i18n="map-title">فروعنا في ليبيا</h2>
-          <p class="section-description" data-i18n="map-desc">
+          <h2 class="section-title">فروعنا في ليبيا</h2>
+          <p class="section-description">
             زوروا أقرب فرع إليكم للحصول على أفضل الخدمات والمنتجات
           </p>
         </div>
 
         <div class="branches-grid">
           <div class="branch-card">
-            <h3 data-i18n="branch-misrata">فرع مصراتة</h3>
-            <p class="branch-address">شارع طرابلس الرئيسي، مصراتة، ليبيا</p>
-            <p class="branch-phone">+218-51-234-5678</p>
+            <h3>فرع مصراتة</h3>
+            <p class="branch-address">شارع طرابلس الرئيسي، مصراتة</p>
+            <p class="branch-phone">الهاتف: +218-51-234-5678</p>
             <div class="branch-hours">
-              <span data-i18n="working-hours">ساعات العمل:</span>
-              <span>السبت - الخميس: 8:00 - 18:00</span>
+              <span>ساعات العمل:</span> السبت - الخميس: 8:00 ص - 6:00 م
             </div>
           </div>
 
           <div class="branch-card">
-            <h3 data-i18n="branch-tripoli">فرع طرابلس</h3>
-            <p class="branch-address">شارع الجمهورية، طرابلس، ليبيا</p>
-            <p class="branch-phone">+218-21-987-6543</p>
+            <h3>فرع طرابلس</h3>
+            <p class="branch-address">شارع الجمهورية، طرابلس</p>
+            <p class="branch-phone">الهاتف: +218-21-123-4567</p>
             <div class="branch-hours">
-              <span data-i18n="working-hours">ساعات العمل:</span>
-              <span>السبت - الخميس: 8:00 - 18:00</span>
+              <span>ساعات العمل:</span> السبت - الخميس: 9:00 ص - 7:00 م
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Enhanced Contact Section -->
-    <section id="contact" class="section" role="region" aria-labelledby="contact-title">
+    <!-- Contact Section -->
+    <section id="contact" class="section">
       <div class="container">
         <div class="section-header">
-          <h2 id="contact-title" class="section-title" data-i18n="contact-title">تواصل معنا</h2>
-          <p class="section-description" data-i18n="contact-desc">
-            نحن هنا لمساعدتكم في كل ما تحتاجونه
-          </p>
+          <h2 class="section-title">تواصل معنا</h2>
+          <p class="section-description">نحن هنا لمساعدتكم في كل ما تحتاجونه</p>
         </div>
 
         <div class="contact-content">
           <div class="contact-info">
             <div class="contact-item">
-              <h4 data-i18n="phone">الهاتف</h4>
+              <h4>الهاتف</h4>
               <p>+218-51-234-5678</p>
-              <p>+218-21-987-6543</p>
+              <p>+218-21-123-4567</p>
             </div>
 
             <div class="contact-item">
-              <h4 data-i18n="email">البريد الإلكتروني</h4>
+              <h4>البريد الإلكتروني</h4>
               <p>info@marmara-supplies.ly</p>
               <p>sales@marmara-supplies.ly</p>
             </div>
 
             <div class="contact-item">
-              <h4 data-i18n="address">العنوان</h4>
-              <p>شارع طرابلس الرئيسي، مصراتة</p>
-              <p>شارع الجمهورية، طرابلس</p>
+              <h4>العنوان</h4>
+              <p>شارع طرابلس الرئيسي، مصراتة، ليبيا</p>
             </div>
           </div>
 
-          <!-- Enhanced Contact Form -->
-          <form class="contact-form" novalidate>
+          <form class="contact-form">
             <div class="form-group">
-              <label for="name">الاسم *</label>
+              <label for="name">الاسم الكامل</label>
               <input type="text" id="name" name="name" required>
             </div>
 
             <div class="form-group">
-              <label for="email">البريد الإلكتروني *</label>
+              <label for="email">البريد الإلكتروني</label>
               <input type="email" id="email" name="email" required>
             </div>
 
@@ -703,12 +510,7 @@
             </div>
 
             <div class="form-group">
-              <label for="subject">الموضوع *</label>
-              <input type="text" id="subject" name="subject" required>
-            </div>
-
-            <div class="form-group">
-              <label for="message">الرسالة *</label>
+              <label for="message">الرسالة</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
 
@@ -717,250 +519,70 @@
         </div>
       </div>
     </section>
-
   </main>
 
-  <!-- Enhanced Footer -->
-  <footer class="site-footer" role="contentinfo">
+  <!-- Footer -->
+  <footer class="site-footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="./img/logo2.jpg" alt="Marmara Logo" width="60" height="60" loading="lazy">
+            <img src="./img/logo1.jpg" alt="Marmara Logo">
           </div>
-          <h3>مرمرة™</h3>
-          <p data-i18n="footer-desc">
+          <h3>مرمرة</h3>
+          <p>
             شركة رائدة في توفير أدوات ومستلزمات الرخام والجرانيت بأعلى معايير الجودة والاحترافية
           </p>
         </div>
 
         <div class="footer-links">
           <div class="footer-section">
-            <h4>روابط سريعة</h4>
+            <h4>الروابط السريعة</h4>
             <ul>
               <li><a href="#home">الرئيسية</a></li>
               <li><a href="#about">من نحن</a></li>
               <li><a href="#products">المنتجات</a></li>
               <li><a href="#gallery">المعارض</a></li>
+              <li><a href="#contact">تواصل معنا</a></li>
             </ul>
           </div>
 
           <div class="footer-section">
-            <h4>خدماتنا</h4>
+            <h4>المنتجات</h4>
             <ul>
-              <li><a href="#gallery" class="filter-trigger" data-filter="machine">أدوات القطع</a></li>
-              <li><a href="#gallery" class="filter-trigger" data-filter="grind">أدوات الجلخ</a></li>
-              <li><a href="#gallery" class="filter-trigger" data-filter="porcelain">أدوات البورسلين</a></li>
-              <li><a href="#gallery" class="filter-trigger" data-filter="drill">أدوات الثقب</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>تواصل معنا</h4>
-            <ul>
-              <li>+218-51-234-5678</li>
-              <li>info@marmara-supplies.ly</li>
-              <li>مصراتة، ليبيا</li>
-              <li>طرابلس، ليبيا</li>
+              <li>أدوات قطع ماكينة</li>
+              <li>أدوات قطع وجلخ</li>
+              <li>أدوات قطع بورسلين</li>
+              <li>أدوات ثقب متقدمة</li>
+              <li>أدوات متنوعة أخرى</li>
             </ul>
           </div>
         </div>
 
-        <!-- Enhanced Newsletter Signup -->
         <div class="footer-newsletter">
-          <h4 data-i18n="newsletter-title">اشترك في نشرتنا</h4>
-          <p data-i18n="newsletter-desc">احصل على آخر الأخبار والعروض الخاصة</p>
+          <h4>اشترك في نشرتنا</h4>
+          <p>احصل على آخر الأخبار والعروض الخاصة</p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
-              <input type="email" placeholder="أدخل بريدك الإلكتروني" 
-                     data-i18n-placeholder="email-placeholder" required>
-              <button type="submit" class="btn btn-primary" data-i18n="subscribe">اشترك</button>
+              <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
+              <button type="submit" class="btn btn-primary">اشترك</button>
             </div>
           </form>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; 2025 مرمرة لمستلزمات الرخام والجرانيت. جميع الحقوق محفوظة.</p>
+        <p>&copy; 2025 مرمرة. جميع الحقوق محفوظة.</p>
         <div class="footer-social">
-          <a href="#" aria-label="Facebook">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="Instagram">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.987 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348zm7.718 0c-1.297 0-2.348-1.051-2.348-2.348s1.051-2.348 2.348-2.348 2.348 1.051 2.348 2.348-1.051 2.348-2.348 2.348z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="WhatsApp">
-            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.905 3.686"/>
-            </svg>
-          </a>
+          <a href="#" aria-label="Facebook">📘</a>
+          <a href="#" aria-label="Instagram">📷</a>
+          <a href="#" aria-label="WhatsApp">📱</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- Enhanced JavaScript -->
+  <!-- JavaScript -->
   <script src="./js/main.js"></script>
-  
-  <!-- FIXED JavaScript for Filter Functionality -->
-  <script>
-    // Enhanced Filter Button Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const galleries = document.querySelectorAll('.gallery');
-      const filterTriggers = document.querySelectorAll('.filter-trigger');
-      
-      // Function to show specific gallery
-      function showGallery(category) {
-        galleries.forEach(gallery => {
-          if (category === 'all' || gallery.getAttribute('data-category') === category) {
-            gallery.classList.add('visible');
-            gallery.style.display = 'block';
-          } else {
-            gallery.classList.remove('visible');
-            gallery.style.display = 'none';
-          }
-        });
-        
-        // Update active filter button
-        filterButtons.forEach(btn => {
-          btn.classList.toggle('active', btn.getAttribute('data-filter') === category);
-          btn.setAttribute('aria-selected', btn.getAttribute('data-filter') === category);
-        });
-        
-        // Scroll to gallery section
-        document.getElementById('gallery').scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-      
-      // Add click event listeners to filter buttons
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const filter = this.getAttribute('data-filter');
-          showGallery(filter);
-        });
-      });
-      
-      // Add click event listeners to filter triggers (from cards and footer)
-      filterTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-          e.preventDefault();
-          const filter = this.getAttribute('data-filter');
-          showGallery(filter);
-        });
-      });
-      
-      // Initialize with all galleries visible
-      showGallery('all');
-    });
-  </script>
-  
-  <!-- Additional CSS for Mobile/Desktop Responsive Elements -->
-  <style>
-    /* Mobile/Desktop Visibility Controls */
-    .mobile-only {
-      display: block;
-    }
-    
-    .desktop-only {
-      display: none;
-    }
-    
-    @media (min-width: 576px) {
-      .desktop-only {
-        display: block;
-      }
-    }
-    
-    @media (min-width: 992px) {
-      .mobile-only {
-        display: none;
-      }
-      
-      .desktop-only {
-        display: flex;
-      }
-    }
-    
-    /* Enhanced Mobile Navigation Fixes */
-    @media (max-width: 991px) {
-      .nav-menu .mobile-only {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-4);
-      }
-      
-      .nav-menu .lang-toggle {
-        order: 1;
-      }
-      
-      .nav-menu .header-cta {
-        order: 2;
-        width: 100%;
-        max-width: 250px;
-      }
-    }
-    
-    /* FIXED Gallery Display */
-    .gallery {
-      display: none;
-    }
-    
-    .gallery.visible {
-      display: block;
-    }
-    
-    /* Enhanced Filter Button Active State */
-    .filter-btn.active {
-      background: var(--gradient-primary);
-      color: var(--color-background);
-      border-color: var(--color-primary);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md), var(--shadow-red-glow);
-    }
-    
-    /* Enhanced Gallery Item Animation */
-    .gallery-item {
-      animation: fadeInUp 0.6s ease-out both;
-    }
-    
-    .gallery-item:nth-child(1) { animation-delay: 0.1s; }
-    .gallery-item:nth-child(2) { animation-delay: 0.2s; }
-    .gallery-item:nth-child(3) { animation-delay: 0.3s; }
-    .gallery-item:nth-child(4) { animation-delay: 0.4s; }
-    .gallery-item:nth-child(5) { animation-delay: 0.5s; }
-    .gallery-item:nth-child(6) { animation-delay: 0.6s; }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Enhanced Filter Trigger Button */
-    .filter-trigger {
-      cursor: pointer;
-      transition: all var(--duration-200) var(--ease-out);
-    }
-    
-    .filter-trigger:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-    }
-  </style>
-
 </body>
 </html>
