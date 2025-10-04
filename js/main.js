@@ -145,7 +145,7 @@ const galleryData = {
   ]
 };
 
-// GSAP Image Slider Class
+// GSAP Image Slider Class (No Timer)
 class GSAPSlider {
   constructor(selector) {
     this.slider = document.querySelector(selector);
@@ -155,14 +155,10 @@ class GSAPSlider {
     this.indicators = this.slider.querySelectorAll('.indicator');
     this.prevBtn = this.slider.querySelector('.prev-btn');
     this.nextBtn = this.slider.querySelector('.next-btn');
-    this.progressBar = this.slider.querySelector('.progress-bar');
     
     this.currentSlide = 0;
     this.totalSlides = this.slides.length;
     this.isAnimating = false;
-    this.autoPlayInterval = null;
-    this.autoPlayDelay = 5000;
-    this.progressDuration = this.autoPlayDelay / 1000;
     
     this.init();
   }
@@ -170,10 +166,12 @@ class GSAPSlider {
   init() {
     if (this.slides.length === 0) return;
     
-    gsap.registerPlugin(ScrollTrigger);
+    if (typeof gsap !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+    
     this.setupSlides();
     this.bindEvents();
-    this.startAutoPlay();
     this.initScrollTrigger();
   }
   
@@ -181,15 +179,18 @@ class GSAPSlider {
     this.slides.forEach((slide, index) => {
       if (index === 0) {
         slide.classList.add('active');
-        gsap.set(slide, { opacity: 1, x: 0, scale: 1 });
+        if (typeof gsap !== 'undefined') {
+          gsap.set(slide, { opacity: 1, x: 0, scale: 1 });
+        }
       } else {
         slide.classList.remove('active');
-        gsap.set(slide, { opacity: 0, x: '100%', scale: 0.9 });
+        if (typeof gsap !== 'undefined') {
+          gsap.set(slide, { opacity: 0, x: '100%', scale: 0.9 });
+        }
       }
     });
     
     this.updateIndicators();
-    this.animateProgressBar();
   }
   
   bindEvents() {
@@ -201,17 +202,7 @@ class GSAPSlider {
     });
     
     this.initTouchEvents();
-    this.slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
-    this.slider.addEventListener('mouseleave', () => this.resumeAutoPlay());
     this.initKeyboardEvents();
-    
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        this.pauseAutoPlay();
-      } else {
-        this.resumeAutoPlay();
-      }
-    });
   }
   
   initTouchEvents() {
@@ -223,7 +214,6 @@ class GSAPSlider {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       isSwiping = false;
-      this.pauseAutoPlay();
     });
     
     this.slider.addEventListener('touchmove', (e) => {
@@ -257,7 +247,6 @@ class GSAPSlider {
       startX = 0;
       startY = 0;
       isSwiping = false;
-      this.resumeAutoPlay();
     });
   }
   
@@ -274,10 +263,6 @@ class GSAPSlider {
           e.preventDefault();
           this.nextSlide();
           break;
-        case ' ':
-          e.preventDefault();
-          this.toggleAutoPlay();
-          break;
         default:
           if (e.key >= '1' && e.key <= '9') {
             const slideIndex = parseInt(e.key) - 1;
@@ -291,6 +276,8 @@ class GSAPSlider {
   }
   
   initScrollTrigger() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    
     ScrollTrigger.create({
       trigger: this.slider,
       start: "top 80%",
@@ -323,43 +310,56 @@ class GSAPSlider {
     const currentSlideEl = this.slides[this.currentSlide];
     const nextSlideEl = this.slides[index];
     
-    const tl = gsap.timeline({
-      onComplete: () => {
+    if (typeof gsap !== 'undefined') {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          this.isAnimating = false;
+          this.currentSlide = index;
+          this.updateIndicators();
+        }
+      });
+      
+      tl.to(currentSlideEl, {
+        opacity: 0,
+        x: index > this.currentSlide ? '-100%' : '100%',
+        scale: 0.9,
+        duration: 0.6,
+        ease: "power2.inOut"
+      })
+      .fromTo(nextSlideEl, 
+        {
+          opacity: 0,
+          x: index > this.currentSlide ? '100%' : '-100%',
+          scale: 0.9
+        },
+        {
+          opacity: 1,
+          x: '0%',
+          scale: 1,
+          duration: 0.6,
+          ease: "power2.inOut"
+        },
+        "-=0.3"
+      );
+    } else {
+      // Fallback without GSAP
+      currentSlideEl.style.opacity = '0';
+      nextSlideEl.style.opacity = '1';
+      nextSlideEl.style.transform = 'translateX(0%)';
+      
+      setTimeout(() => {
         this.isAnimating = false;
         this.currentSlide = index;
         this.updateIndicators();
-        this.animateProgressBar();
-      }
-    });
-    
-    tl.to(currentSlideEl, {
-      opacity: 0,
-      x: index > this.currentSlide ? '-100%' : '100%',
-      scale: 0.9,
-      duration: 0.6,
-      ease: "power2.inOut"
-    })
-    .fromTo(nextSlideEl, 
-      {
-        opacity: 0,
-        x: index > this.currentSlide ? '100%' : '-100%',
-        scale: 0.9
-      },
-      {
-        opacity: 1,
-        x: '0%',
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.inOut"
-      },
-      "-=0.3"
-    );
+      }, 600);
+    }
     
     currentSlideEl.classList.remove('active');
     nextSlideEl.classList.add('active');
     
+    // Animate slide content
     const slideContent = nextSlideEl.querySelector('.slide-content');
-    if (slideContent) {
+    if (slideContent && typeof gsap !== 'undefined') {
       const contentElements = slideContent.children;
       gsap.fromTo(contentElements,
         { y: 30, opacity: 0 },
@@ -382,52 +382,14 @@ class GSAPSlider {
     });
   }
   
-  animateProgressBar() {
-    if (!this.progressBar) return;
-    
-    gsap.set(this.progressBar, { width: '0%' });
-    gsap.to(this.progressBar, {
-      width: '100%',
-      duration: this.progressDuration,
-      ease: "none"
-    });
-  }
-  
-  startAutoPlay() {
-    this.autoPlayInterval = setInterval(() => {
-      this.nextSlide();
-    }, this.autoPlayDelay);
-  }
-  
-  pauseAutoPlay() {
-    if (this.autoPlayInterval) {
-      clearInterval(this.autoPlayInterval);
-      this.autoPlayInterval = null;
-    }
-  }
-  
-  resumeAutoPlay() {
-    if (!this.autoPlayInterval && !document.hidden) {
-      this.startAutoPlay();
-      this.animateProgressBar();
-    }
-  }
-  
-  toggleAutoPlay() {
-    if (this.autoPlayInterval) {
-      this.pauseAutoPlay();
-    } else {
-      this.resumeAutoPlay();
-    }
-  }
-  
   destroy() {
-    if (this.autoPlayInterval) {
-      clearInterval(this.autoPlayInterval);
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     }
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    gsap.killTweensOf(this.slider);
-    gsap.killTweensOf(this.slides);
+    if (typeof gsap !== 'undefined') {
+      gsap.killTweensOf(this.slider);
+      gsap.killTweensOf(this.slides);
+    }
   }
 }
 
@@ -451,7 +413,6 @@ class GalleryManager {
 
   setLanguage(lang) {
     this.currentLanguage = lang;
-    // Re-populate gallery with new language
     this.populateGallery(this.currentFilter);
   }
   
@@ -495,15 +456,20 @@ class GalleryManager {
       }, 1500);
     }
     
-    gsap.to(window, {
-      duration: 1.2,
-      scrollTo: {
-        y: gallerySection,
-        offsetY: 100
-      },
-      ease: "power2.inOut",
-      onComplete: callback
-    });
+    if (typeof gsap !== 'undefined') {
+      gsap.to(window, {
+        duration: 1.2,
+        scrollTo: {
+          y: gallerySection,
+          offsetY: 100
+        },
+        ease: "power2.inOut",
+        onComplete: callback
+      });
+    } else {
+      gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (callback) setTimeout(callback, 1200);
+    }
   }
   
   applyFilter(filter) {
@@ -512,7 +478,6 @@ class GalleryManager {
     });
     
     this.currentFilter = filter;
-    
     this.animateFilterTransition(() => {
       this.populateGallery(filter);
     });
@@ -521,30 +486,34 @@ class GalleryManager {
   animateFilterTransition(callback) {
     if (!this.galleryGrid) return;
     
-    gsap.to(this.galleryGrid.children, {
-      opacity: 0,
-      y: 30,
-      scale: 0.9,
-      duration: 0.4,
-      stagger: 0.05,
-      ease: "power2.inOut",
-      onComplete: () => {
-        callback();
-        
-        gsap.fromTo(this.galleryGrid.children, {
-          opacity: 0,
-          y: 30,
-          scale: 0.9
-        }, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power2.out"
-        });
-      }
-    });
+    if (typeof gsap !== 'undefined') {
+      gsap.to(this.galleryGrid.children, {
+        opacity: 0,
+        y: 30,
+        scale: 0.9,
+        duration: 0.4,
+        stagger: 0.05,
+        ease: "power2.inOut",
+        onComplete: () => {
+          callback();
+          
+          gsap.fromTo(this.galleryGrid.children, {
+            opacity: 0,
+            y: 30,
+            scale: 0.9
+          }, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "power2.out"
+          });
+        }
+      });
+    } else {
+      callback();
+    }
   }
   
   populateGallery(filter) {
@@ -616,15 +585,17 @@ class GalleryManager {
     
     document.body.appendChild(lightbox);
     
-    gsap.fromTo(lightbox, 
-      { opacity: 0 },
-      { opacity: 1, duration: 0.3, ease: "power2.out" }
-    );
-    
-    gsap.fromTo(lightbox.querySelector('.lightbox-content'), 
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)", delay: 0.1 }
-    );
+    if (typeof gsap !== 'undefined') {
+      gsap.fromTo(lightbox, 
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power2.out" }
+      );
+      
+      gsap.fromTo(lightbox.querySelector('.lightbox-content'), 
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)", delay: 0.1 }
+      );
+    }
   }
 }
 
@@ -637,7 +608,7 @@ class MarmaraWebsite {
     this.gsapSlider = null;
     this.galleryManager = null;
     
-    // Complete translations object with all missing keys
+    // Complete translations object (keeping existing translations)
     this.translations = {
       ar: {
         // Site metadata
@@ -835,14 +806,15 @@ class MarmaraWebsite {
     
     this.init();
   }
-  
+  // ... (continuing from where we left off in the init method)
+
   async init() {
     try {
       this.showLoadingIndicator();
       
       await Promise.all([
         this.initLanguageSystem(),
-        this.initMobileNavigation(),
+        this.initMobileNavigation(), // Fixed mobile navigation
         this.initScrollProgress(),
         this.initHeaderEffects(),
         this.initGSAPSlider(),
@@ -855,7 +827,7 @@ class MarmaraWebsite {
       this.loadSavedLanguage();
       this.hideLoadingIndicator();
       
-      console.log('Marmara Website with complete language system initialized successfully');
+      console.log('Marmara Website initialized successfully - Mobile menu fixed');
       
     } catch (error) {
       console.error('Error initializing website:', error);
@@ -901,33 +873,25 @@ class MarmaraWebsite {
   switchLanguage(targetLang) {
     this.currentLanguage = targetLang;
     
-    // Update document language and direction
     document.documentElement.lang = targetLang;
     document.documentElement.dir = targetLang === 'ar' ? 'rtl' : 'ltr';
     
-    // Update button states
     document.querySelectorAll('[data-lang]').forEach(btn => {
       const isActive = btn.dataset.lang === targetLang;
       btn.classList.toggle('active', isActive);
       btn.setAttribute('aria-pressed', isActive);
     });
     
-  
-    // Update all translatable elements
     this.updateLanguage();
     
-    // Update gallery language
     if (this.galleryManager) {
       this.galleryManager.setLanguage(targetLang);
     }
     
-    // Update dynamic content
     this.updateDynamicContent();
     
-    // Save language preference
     localStorage.setItem('preferred-language', targetLang);
     
-    // Dispatch language change event
     document.dispatchEvent(new CustomEvent('languageChanged', {
       detail: { language: targetLang }
     }));
@@ -939,7 +903,6 @@ class MarmaraWebsite {
       const key = element.getAttribute('data-i18n');
       const translation = this.translations[this.currentLanguage]?.[key];
       if (translation) {
-        // Handle different element types
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
           if (element.type === 'submit' || element.type === 'button') {
             element.value = translation;
@@ -954,12 +917,10 @@ class MarmaraWebsite {
       }
     });
     
-    // Update title
     document.title = this.translations[this.currentLanguage]['site-title'] || document.title;
   }
   
   updateDynamicContent() {
-    // Update filter buttons
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(btn => {
       const filter = btn.dataset.filter;
@@ -970,7 +931,6 @@ class MarmaraWebsite {
       }
     });
     
-    // Update stats labels
     const statLabels = document.querySelectorAll('.stat-label');
     const statKeys = ['stat-products', 'stat-customers', 'stat-experience', 'stat-branches'];
     statLabels.forEach((label, index) => {
@@ -979,18 +939,16 @@ class MarmaraWebsite {
       }
     });
     
-    // Update section content that's not using data-i18n
     this.updateSectionContent();
   }
   
   updateSectionContent() {
-    // Update slider section
     const sliderEyebrow = document.querySelector('.slider-section .section-eyebrow');
     if (sliderEyebrow) {
       sliderEyebrow.textContent = this.translations[this.currentLanguage]['slider-eyebrow'];
     }
     
-    const sliderTitle = document.querySelector('.slider-section .section-title-up, .slider-section .section-title');
+    const sliderTitle = document.querySelector('.slider-section .section-title');
     if (sliderTitle) {
       sliderTitle.textContent = this.translations[this.currentLanguage]['slider-title'];
     }
@@ -1000,7 +958,6 @@ class MarmaraWebsite {
       sliderDesc.textContent = this.translations[this.currentLanguage]['slider-desc'];
     }
     
-    // Update gallery section
     const galleryEyebrow = document.querySelector('#gallery .section-eyebrow');
     if (galleryEyebrow) {
       galleryEyebrow.textContent = this.translations[this.currentLanguage]['gallery-eyebrow'];
@@ -1011,7 +968,6 @@ class MarmaraWebsite {
       galleryTitle.textContent = this.translations[this.currentLanguage]['gallery-title'];
     }
     
-    // Update map section
     const mapTitle = document.querySelector('#map .section-title');
     if (mapTitle) {
       mapTitle.textContent = this.translations[this.currentLanguage]['map-title'];
@@ -1022,13 +978,8 @@ class MarmaraWebsite {
       mapDesc.textContent = this.translations[this.currentLanguage]['map-desc'];
     }
     
-    // Update branch information
     this.updateBranchInfo();
-    
-    // Update contact section
     this.updateContactSection();
-    
-    // Update footer
     this.updateFooter();
   }
   
@@ -1040,16 +991,17 @@ class MarmaraWebsite {
       const phone = branch.querySelector('.branch-phone');
       const hours = branch.querySelector('.branch-hours');
       
-      if (index === 0) { // Misrata branch
+      if (index === 0) {
         if (title) title.textContent = this.translations[this.currentLanguage]['branch-misrata'];
         if (address) address.textContent = this.translations[this.currentLanguage]['branch-address-misrata'];
-      } else { // Tripoli branch
+      } else {
         if (title) title.textContent = this.translations[this.currentLanguage]['branch-tripoli'];
         if (address) address.textContent = this.translations[this.currentLanguage]['branch-address-tripoli'];
       }
       
       if (phone) {
-        phone.innerHTML = `${this.translations[this.currentLanguage]['branch-phone']}: ${phone.textContent.split(': ')[1] || '+218-51-234-5678'}`;
+        const phoneNumber = phone.textContent.split(': ')[1] || '+218-51-234-5678';
+        phone.innerHTML = `<span data-i18n="branch-phone">${this.translations[this.currentLanguage]['branch-phone']}</span>: ${phoneNumber}`;
       }
       
       if (hours) {
@@ -1057,10 +1009,8 @@ class MarmaraWebsite {
         if (hoursSpan) {
           hoursSpan.textContent = this.translations[this.currentLanguage]['branch-hours'] + ':';
         }
-        const hoursText = hours.childNodes[1];
-        if (hoursText) {
-          hoursText.textContent = ` ${this.translations[this.currentLanguage]['branch-hours-text']}: ${this.currentLanguage === 'ar' ? '8:00 ص - 6:00 م' : '8:00 AM - 6:00 PM'}`;
-        }
+        const hoursText = this.currentLanguage === 'ar' ? '8:00 ص - 6:00 م' : '8:00 AM - 6:00 PM';
+        hours.innerHTML = `<span>${this.translations[this.currentLanguage]['branch-hours']}:</span> <span>${this.translations[this.currentLanguage]['branch-hours-text']}</span>: ${hoursText}`;
       }
     });
   }
@@ -1076,7 +1026,6 @@ class MarmaraWebsite {
       contactDesc.textContent = this.translations[this.currentLanguage]['contact-desc'];
     }
     
-    // Update contact info headers
     const contactItems = document.querySelectorAll('.contact-item h4');
     const contactKeys = ['contact-phone', 'contact-email', 'contact-address'];
     contactItems.forEach((item, index) => {
@@ -1085,7 +1034,6 @@ class MarmaraWebsite {
       }
     });
     
-    // Update form labels
     const formLabels = document.querySelectorAll('.form-group label');
     const formKeys = ['form-name', 'form-email', 'form-phone', 'form-message'];
     formLabels.forEach((label, index) => {
@@ -1134,9 +1082,9 @@ class MarmaraWebsite {
       newsletterBtn.textContent = this.translations[this.currentLanguage]['footer-newsletter-btn'];
     }
     
-    const copyright = document.querySelector('.footer-bottom p');
+    const copyright = document.querySelector('.footer-bottom p span');
     if (copyright) {
-      copyright.innerHTML = `&copy; 2025 مرمرة. ${this.translations[this.currentLanguage]['footer-copyright']}.`;
+      copyright.textContent = this.translations[this.currentLanguage]['footer-copyright'];
     }
   }
   
@@ -1146,45 +1094,115 @@ class MarmaraWebsite {
       this.switchLanguage(savedLang);
     }
   }
+  // EMERGENCY MOBILE NAVIGATION FIX
+initMobileNavigation() {
+  console.log('Initializing EMERGENCY mobile navigation...');
   
-  initMobileNavigation() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const navOverlay = document.querySelector('.nav-overlay');
-    const navLinks = document.querySelectorAll('.nav-link');
+  // Find or create elements
+  let menuToggle = document.querySelector('.menu-toggle');
+  let navMenu = document.querySelector('.nav-menu');
+  let navOverlay = document.querySelector('.nav-overlay');
+  
+  // Create missing elements if needed
+  if (!menuToggle) {
+    console.log('Creating missing menu toggle...');
+    menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<span></span><span></span><span></span>';
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
     
-    if (!menuToggle || !navMenu) return;
+    const headerActions = document.querySelector('.header-actions');
+    if (headerActions) {
+      headerActions.appendChild(menuToggle);
+    } else {
+      document.querySelector('.site-header .inner').appendChild(menuToggle);
+    }
+  }
+  
+  if (!navOverlay) {
+    console.log('Creating missing nav overlay...');
+    navOverlay = document.createElement('div');
+    navOverlay.className = 'nav-overlay';
+    document.body.appendChild(navOverlay);
+  }
+  
+  if (!navMenu) {
+    console.error('Nav menu not found! Check your HTML structure.');
+    return;
+  }
+  
+  console.log('Mobile navigation elements:', {
+    menuToggle: !!menuToggle,
+    navMenu: !!navMenu,
+    navOverlay: !!navOverlay
+  });
+  
+  // Simple toggle function
+  const toggleMenu = (forceClose = false) => {
+    const isOpen = menuToggle.classList.contains('active');
     
-    menuToggle.addEventListener('click', () => {
-      const isOpen = menuToggle.classList.contains('active');
-      
-      menuToggle.classList.toggle('active');
-      navMenu.classList.toggle('open');
-      navOverlay?.classList.toggle('active');
-      
-      menuToggle.setAttribute('aria-expanded', !isOpen);
-      document.body.style.overflow = !isOpen ? 'hidden' : '';
-    });
+    console.log('Toggling menu:', { isOpen, forceClose });
     
-    navOverlay?.addEventListener('click', () => {
+    if (forceClose || isOpen) {
+      // Close menu
       menuToggle.classList.remove('active');
       navMenu.classList.remove('open');
       navOverlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
       menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-    
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navMenu.classList.remove('open');
-        navOverlay?.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-  }
+      console.log('Menu closed');
+    } else {
+      // Open menu  
+      menuToggle.classList.add('active');
+      navMenu.classList.add('open');
+      navOverlay.classList.add('active');
+      document.body.classList.add('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      console.log('Menu opened');
+    }
+  };
   
+  // Menu toggle click
+  menuToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Menu toggle clicked');
+    toggleMenu();
+  });
+  
+  // Overlay click
+  navOverlay.addEventListener('click', () => {
+    console.log('Overlay clicked');
+    toggleMenu(true);
+  });
+  
+  // Nav link clicks
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      console.log('Nav link clicked');
+      toggleMenu(true);
+    });
+  });
+  
+  // Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuToggle.classList.contains('active')) {
+      toggleMenu(true);
+    }
+  });
+  
+  // Window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1023) {
+      toggleMenu(true);
+    }
+  });
+  
+  console.log('EMERGENCY mobile navigation initialized successfully');
+}
+
   initScrollProgress() {
     const progressBar = document.querySelector('.scroll-progress-bar');
     if (!progressBar) return;
@@ -1260,17 +1278,31 @@ class MarmaraWebsite {
           const target = entry.target;
           const finalValue = parseInt(target.dataset.count) || 0;
           
-          gsap.fromTo(target, {
-            textContent: 0
-          }, {
-            textContent: finalValue,
-            duration: 2,
-            ease: "power2.out",
-            snap: { textContent: 1 },
-            onUpdate: function() {
-              target.textContent = Math.ceil(target.textContent) + (target.textContent > 1 ? '+' : '');
-            }
-          });
+          if (typeof gsap !== 'undefined') {
+            gsap.fromTo(target, {
+              textContent: 0
+            }, {
+              textContent: finalValue,
+              duration: 2,
+              ease: "power2.out",
+              snap: { textContent: 1 },
+              onUpdate: function() {
+                target.textContent = Math.ceil(target.textContent) + (target.textContent > 1 ? '+' : '');
+              }
+            });
+          } else {
+            // Fallback animation without GSAP
+            let current = 0;
+            const increment = finalValue / 60;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= finalValue) {
+                current = finalValue;
+                clearInterval(timer);
+              }
+              target.textContent = Math.ceil(current) + (current > 1 ? '+' : '');
+            }, 33);
+          }
           
           observer.unobserve(target);
         }
@@ -1357,6 +1389,12 @@ class MarmaraWebsite {
       transition: all 0.3s ease;
     `;
     
+    if (type === 'success') {
+      notification.style.background = '#10b981';
+    } else if (type === 'error') {
+      notification.style.background = '#ef4444';
+    }
+    
     document.body.appendChild(notification);
     
     setTimeout(() => {
@@ -1409,14 +1447,75 @@ class MarmaraWebsite {
 
 // Initialize the website when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM Content Loaded - Initializing Marmara Website');
   const website = new MarmaraWebsite();
+  window.marmaraWebsite = website; // Make it globally accessible for debugging
 });
 
 // Handle page visibility changes
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
+  if (document.hidden && typeof gsap !== 'undefined') {
     gsap.globalTimeline.pause();
-  } else {
+  } else if (!document.hidden && typeof gsap !== 'undefined') {
     gsap.globalTimeline.resume();
   }
 });
+
+// Handle window resize for responsive adjustments
+window.addEventListener('resize', () => {
+  console.log('Window resized to:', window.innerWidth + 'x' + window.innerHeight);
+  // Trigger any resize-specific logic
+  const event = new CustomEvent('responsiveResize');
+  document.dispatchEvent(event);
+});
+
+// Performance monitoring
+if ('performance' in window && 'measure' in performance) {
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const perfData = performance.getEntriesByType('navigation')[0];
+      if (perfData) {
+        console.log('Website Performance:', {
+          loadTime: Math.round(perfData.loadEventEnd - perfData.fetchStart),
+          domReady: Math.round(perfData.domContentLoadedEventEnd - perfData.fetchStart),
+          firstPaint: Math.round(performance.getEntriesByType('paint')[0]?.startTime || 0)
+        });
+      }
+    }, 0);
+  });
+}
+
+// Debug helper for mobile menu
+window.debugMobileMenu = function() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  const navOverlay = document.querySelector('.nav-overlay');
+  
+  console.log('Mobile Menu Debug Info:', {
+    menuToggle: {
+      exists: !!menuToggle,
+      visible: menuToggle ? getComputedStyle(menuToggle).display !== 'none' : false,
+      active: menuToggle ? menuToggle.classList.contains('active') : false
+    },
+    navMenu: {
+      exists: !!navMenu,
+      open: navMenu ? navMenu.classList.contains('open') : false,
+      position: navMenu ? getComputedStyle(navMenu).position : 'none',
+      right: navMenu ? getComputedStyle(navMenu).right : 'none'
+    },
+    overlay: {
+      exists: !!navOverlay,
+      active: navOverlay ? navOverlay.classList.contains('active') : false
+    },
+    viewport: {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      isMobile: window.innerWidth <= 1023
+    }
+  });
+};
+
+// Add to window for easy debugging
+window.galleryManager = null; // Will be set by MarmaraWebsite class
+
+console.log('Marmara Website Script Loaded Successfully');

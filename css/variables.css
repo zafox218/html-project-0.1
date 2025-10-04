@@ -12,7 +12,7 @@
   --color-primary-700: #b91c1c;
   --color-primary-800: #991b1b;
   --color-primary-900: #7f1d1d;
-  
+
   /* Neutral Colors */
   --color-background: #ffffff;
   --color-surface: #f8fafc;
@@ -20,7 +20,7 @@
   --color-text-up: #170808;
   --color-text-secondary: #705b5b;
   --color-text-muted: #6b6060;
-  --color-border: #000000;
+  --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
 
   /* Enhanced Gradients */
@@ -164,12 +164,10 @@
 
   /* Slider Specific Variables */
   --slider-transition-duration: 0.6s;
-  --slider-autoplay-duration: 5s;
   --slider-content-delay: 0.3s;
   --slider-nav-bg: rgba(255, 255, 255, 0.9);
   --slider-nav-hover: var(--color-primary);
   --slider-indicator-bg: rgba(255, 255, 255, 0.5);
-  --slider-progress-bg: var(--gradient-primary);
   --slider-height-mobile: 350px;
   --slider-height-tablet: 500px;
   --slider-height-desktop: 600px;
@@ -178,7 +176,7 @@
   --form-border-color: rgba(0, 0, 0, 0.1);
   --form-border-focus: var(--color-primary);
   --form-bg: var(--color-background);
-  --form-text: var(--color-text);
+  --form-text: var(--color-text-up);
 
   /* Button Variables */
   --btn-border-radius: var(--radius-lg);
@@ -198,8 +196,8 @@
   :root {
     --color-background: #0f172a;
     --color-surface: #1e293b;
-    --color-text: #f1f5f9;
-    --color-text-secondary: #210909;
+    --color-text-up: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
     --color-text-muted: #94a3b8;
     --color-border: #334155;
     --color-border-light: #475569;
@@ -231,8 +229,8 @@
 /* High Contrast Support */
 @media (prefers-contrast: high) {
   :root {
-    --color-text: #000000;
-    --color-text-secondary: #191313;
+    --color-text-up: #000000;
+    --color-text-secondary: #333333;
     --color-border: #000000;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -245,82 +243,4 @@
   :root {
     --font-display: swap;
   }
-}
-
-/* Layout Container Fix - More Specific */
-.site-header > .container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--space-4);
-}
-
-/* Prevent navbar collapse - More Specific */
-.nav-menu > li {
-  flex-shrink: 0;
-  list-style: none;
-}
-
-/* Better alignment - More Specific and Safe */
-.site-header .inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 70px;
-  gap: var(--space-4);
-  position: relative;
-}
-
-/* Logo text fix - More Specific */
-.brand .brand-text {
-  font-family: var(--font-family-display);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 1.3rem;
-  display: inline-block;
-}
-
-/* Additional fixes to prevent overlap */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-shrink: 0;
-  margin-left: auto;
-  z-index: 10;
-}
-
-/* Ensure navigation doesn't interfere with header actions */
-.nav {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  max-width: calc(100% - 400px); /* Leave space for logo and actions */
-  margin: 0 var(--space-4);
-}
-
-/* Language toggle specific fix */
-.lang-toggle {
-  display: flex;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-full);
-  padding: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 11;
-}
-
-/* Header CTA button specific fix */
-.header-cta {
-  position: relative;
-  z-index: 11;
-  white-space: nowrap;
-}
-
-/* Brand specific fix */
-.brand {
-  position: relative;
-  z-index: 11;
-  flex-shrink: 0;
 }
