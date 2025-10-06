@@ -3751,3 +3751,363 @@ code::selection, pre::selection {
   border-radius: var(--radius-full);
   animation: spin 1s linear infinite;
 }
+/* =================================================================== */
+/* FLOATING SOCIAL MEDIA ICONS - ENHANCED & ANIMATED                 */
+/* =================================================================== */
+
+.floating-social-icons {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--duration-500) var(--ease-spring);
+}
+
+/* Responsive positioning */
+@media (max-width: 768px) {
+  .floating-social-icons {
+    right: 15px;
+    gap: var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-social-icons {
+    right: 10px;
+    top: auto;
+    bottom: 100px;
+    transform: none;
+  }
+}
+
+/* Individual Floating Social Buttons */
+.floating-social-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-xl);
+  transition: all var(--duration-300) var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+/* Responsive button sizes */
+@media (max-width: 768px) {
+  .floating-social-btn {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-social-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Floating animation with staggered delays */
+.floating-social-btn:nth-child(1) { animation-delay: 0s; }
+.floating-social-btn:nth-child(2) { animation-delay: 0.5s; }
+.floating-social-btn:nth-child(3) { animation-delay: 1s; }
+.floating-social-btn:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-8px) rotate(2deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(-4px) rotate(-1deg); }
+}
+
+/* Hover effects */
+.floating-social-btn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: var(--shadow-2xl);
+  animation-play-state: paused;
+}
+
+.floating-social-btn:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* SVG Icons */
+.floating-social-btn svg {
+  width: 24px;
+  height: 24px;
+  transition: all var(--duration-300) var(--ease-out);
+  z-index: 2;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  .floating-social-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.floating-social-btn:hover svg {
+  transform: scale(1.2) rotate(15deg);
+}
+
+/* Shine effect */
+.floating-social-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left var(--duration-500) var(--ease-out);
+}
+
+.floating-social-btn:hover::before {
+  left: 100%;
+}
+
+/* Platform-specific colors */
+.facebook-floating {
+  background: linear-gradient(135deg, #1877f2 0%, #42a5f5 100%);
+  color: white;
+}
+
+.facebook-floating:hover {
+  background: linear-gradient(135deg, #166fe5 0%, #3b96e8 100%);
+  box-shadow: 0 10px 30px rgba(24, 119, 242, 0.4);
+}
+
+.instagram-floating {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: white;
+}
+
+.instagram-floating:hover {
+  background: linear-gradient(135deg, #7631a7 0%, #e41a1a 50%, #e3a040 100%);
+  box-shadow: 0 10px 30px rgba(131, 58, 180, 0.4);
+}
+
+.whatsapp-floating {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+}
+
+.whatsapp-floating:hover {
+  background: linear-gradient(135deg, #22c55e 0%, #0f7971 100%);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+}
+
+.youtube-floating {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: white;
+}
+
+.youtube-floating:hover {
+  background: linear-gradient(135deg, #e60000 0%, #b30000 100%);
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+}
+
+/* Tooltip on hover */
+.floating-social-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--duration-300) var(--ease-out);
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
+  z-index: 10;
+}
+
+.floating-social-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+  right: 65px;
+}
+
+/* Hide tooltips on mobile */
+@media (max-width: 768px) {
+  .floating-social-btn::after {
+    display: none;
+  }
+}
+
+/* Toggle Button */
+.floating-toggle-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--duration-300) var(--ease-out);
+  margin-top: var(--space-4);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .floating-toggle-btn {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+.floating-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-xl), var(--shadow-red-glow);
+}
+
+.floating-toggle-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--duration-300) var(--ease-out);
+}
+
+.floating-toggle-btn:hover svg {
+  transform: rotate(180deg);
+}
+
+/* Hidden state */
+.floating-social-icons.hidden .floating-social-btn {
+  transform: translateX(100px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-social-icons.hidden .floating-social-btn:nth-child(1) { transition-delay: 0s; }
+.floating-social-icons.hidden .floating-social-btn:nth-child(2) { transition-delay: 0.1s; }
+.floating-social-icons.hidden .floating-social-btn:nth-child(3) { transition-delay: 0.2s; }
+.floating-social-icons.hidden .floating-social-btn:nth-child(4) { transition-delay: 0.3s; }
+
+/* Show animation */
+.floating-social-icons:not(.hidden) .floating-social-btn {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.floating-social-icons:not(.hidden) .floating-social-btn:nth-child(1) { transition-delay: 0.3s; }
+.floating-social-icons:not(.hidden) .floating-social-btn:nth-child(2) { transition-delay: 0.2s; }
+.floating-social-icons:not(.hidden) .floating-social-btn:nth-child(3) { transition-delay: 0.1s; }
+.floating-social-icons:not(.hidden) .floating-social-btn:nth-child(4) { transition-delay: 0s; }
+
+/* Pulse animation for WhatsApp (to draw attention) */
+.whatsapp-floating {
+  animation: floatUpDown 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3); }
+  50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6); }
+}
+
+/* Enhanced entrance animation */
+.floating-social-icons {
+  animation: slideInRight 1s var(--ease-spring) both;
+  animation-delay: 2s;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px) translateY(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) translateY(-50%);
+    opacity: 1;
+  }
+}
+
+/* Mobile landscape adjustments */
+@media (max-width: 896px) and (orientation: landscape) and (max-height: 414px) {
+  .floating-social-icons {
+    right: 10px;
+    top: 20px;
+    transform: none;
+    flex-direction: row;
+    gap: var(--space-2);
+  }
+  
+  .floating-social-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .floating-social-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .floating-social-btn {
+    border: 3px solid #000000;
+  }
+  
+  .floating-social-btn::after {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .floating-social-btn,
+  .whatsapp-floating {
+    animation: none !important;
+  }
+  
+  .floating-social-btn:hover {
+    transform: none;
+  }
+  
+  .floating-social-icons {
+    animation: none !important;
+  }
+}
+
+/* Focus accessibility */
+.floating-social-btn:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+.floating-toggle-btn:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 3px;
+}
+
+/* Print - hide floating icons */
+@media print {
+  .floating-social-icons {
+    display: none !important;
+  }
+}
