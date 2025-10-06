@@ -145,11 +145,14 @@ const galleryData = {
   ]
 };
 
-// GSAP Image Slider Class (No Timer)
+// GSAP Image Slider Class (No Timer - Manual Control Only)
 class GSAPSlider {
   constructor(selector) {
     this.slider = document.querySelector(selector);
-    if (!this.slider) return;
+    if (!this.slider) {
+      console.warn(`GSAP Slider: Element "${selector}" not found`);
+      return;
+    }
     
     this.slides = this.slider.querySelectorAll('.slide');
     this.indicators = this.slider.querySelectorAll('.indicator');
@@ -160,19 +163,27 @@ class GSAPSlider {
     this.totalSlides = this.slides.length;
     this.isAnimating = false;
     
+    if (this.totalSlides === 0) {
+      console.warn('GSAP Slider: No slides found');
+      return;
+    }
+    
     this.init();
   }
   
   init() {
-    if (this.slides.length === 0) return;
+    console.log(`GSAP Slider: Initializing with ${this.totalSlides} slides`);
     
-    if (typeof gsap !== 'undefined') {
+    // Register GSAP plugins if available
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
     }
     
     this.setupSlides();
     this.bindEvents();
     this.initScrollTrigger();
+    
+    console.log('GSAP Slider: Initialization complete');
   }
   
   setupSlides() {
@@ -194,11 +205,27 @@ class GSAPSlider {
   }
   
   bindEvents() {
-    if (this.prevBtn) this.prevBtn.addEventListener('click', () => this.prevSlide());
-    if (this.nextBtn) this.nextBtn.addEventListener('click', () => this.nextSlide());
+    // Navigation buttons
+    if (this.prevBtn) {
+      this.prevBtn.addEventListener('click', () => {
+        console.log('Previous button clicked');
+        this.prevSlide();
+      });
+    }
     
+    if (this.nextBtn) {
+      this.nextBtn.addEventListener('click', () => {
+        console.log('Next button clicked');
+        this.nextSlide();
+      });
+    }
+    
+    // Indicators
     this.indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => this.goToSlide(index));
+      indicator.addEventListener('click', () => {
+        console.log(`Indicator ${index} clicked`);
+        this.goToSlide(index);
+      });
     });
     
     this.initTouchEvents();
@@ -214,7 +241,7 @@ class GSAPSlider {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       isSwiping = false;
-    });
+    }, { passive: true });
     
     this.slider.addEventListener('touchmove', (e) => {
       if (!startX || !startY) return;
@@ -224,11 +251,12 @@ class GSAPSlider {
       const diffX = startX - currentX;
       const diffY = startY - currentY;
       
+      // Check if horizontal swipe is dominant
       if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
         isSwiping = true;
         e.preventDefault();
       }
-    });
+    }, { passive: false });
     
     this.slider.addEventListener('touchend', (e) => {
       if (!isSwiping || !startX) return;
@@ -236,38 +264,47 @@ class GSAPSlider {
       const endX = e.changedTouches[0].clientX;
       const diffX = startX - endX;
       
+      // Minimum swipe distance
       if (Math.abs(diffX) > 50) {
         if (diffX > 0) {
+          console.log('Touch swipe: next');
           this.nextSlide();
         } else {
+          console.log('Touch swipe: previous');
           this.prevSlide();
         }
       }
       
+      // Reset values
       startX = 0;
       startY = 0;
       isSwiping = false;
-    });
+    }, { passive: true });
   }
   
   initKeyboardEvents() {
     document.addEventListener('keydown', (e) => {
-      if (!this.slider.matches(':hover')) return;
+      // Only respond when slider is in viewport or hovered
+      if (!this.isSliderVisible()) return;
       
       switch(e.key) {
         case 'ArrowLeft':
           e.preventDefault();
+          console.log('Keyboard: previous slide');
           this.prevSlide();
           break;
         case 'ArrowRight':
           e.preventDefault();
+          console.log('Keyboard: next slide');
           this.nextSlide();
           break;
         default:
+          // Number keys 1-9 for direct slide access
           if (e.key >= '1' && e.key <= '9') {
             const slideIndex = parseInt(e.key) - 1;
             if (slideIndex < this.totalSlides) {
               e.preventDefault();
+              console.log(`Keyboard: go to slide ${slideIndex + 1}`);
               this.goToSlide(slideIndex);
             }
           }
@@ -275,36 +312,69 @@ class GSAPSlider {
     });
   }
   
+  isSliderVisible() {
+    const rect = this.slider.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    
+    return (
+      rect.top < windowHeight &&
+      rect.bottom > 0 &&
+      rect.left < window.innerWidth &&
+      rect.right > 0
+    );
+  }
+  
   initScrollTrigger() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      console.log('GSAP ScrollTrigger not available');
+      return;
+    }
     
     ScrollTrigger.create({
       trigger: this.slider,
       start: "top 80%",
       end: "bottom 20%",
       onEnter: () => {
+        console.log('Slider entered viewport');
         gsap.fromTo(this.slider, 
           { opacity: 0, y: 50, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power2.out" }
+          { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1, 
+            duration: 0.8, 
+            ease: "power2.out" 
+          }
         );
-      }
+      },
+      once: true
     });
   }
   
   nextSlide() {
-    if (this.isAnimating) return;
+    if (this.isAnimating) {
+      console.log('Animation in progress, ignoring next slide request');
+      return;
+    }
     const nextIndex = (this.currentSlide + 1) % this.totalSlides;
     this.goToSlide(nextIndex);
   }
   
   prevSlide() {
-    if (this.isAnimating) return;
+    if (this.isAnimating) {
+      console.log('Animation in progress, ignoring previous slide request');
+      return;
+    }
     const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
     this.goToSlide(prevIndex);
   }
   
   goToSlide(index) {
-    if (this.isAnimating || index === this.currentSlide) return;
+    if (this.isAnimating || index === this.currentSlide || index < 0 || index >= this.totalSlides) {
+      return;
+    }
+    
+    console.log(`Going to slide ${index} from slide ${this.currentSlide}`);
     
     this.isAnimating = true;
     const currentSlideEl = this.slides[this.currentSlide];
@@ -316,9 +386,11 @@ class GSAPSlider {
           this.isAnimating = false;
           this.currentSlide = index;
           this.updateIndicators();
+          console.log(`Slide transition complete: now on slide ${index}`);
         }
       });
       
+      // Animate current slide out
       tl.to(currentSlideEl, {
         opacity: 0,
         x: index > this.currentSlide ? '-100%' : '100%',
@@ -326,6 +398,7 @@ class GSAPSlider {
         duration: 0.6,
         ease: "power2.inOut"
       })
+      // Animate next slide in
       .fromTo(nextSlideEl, 
         {
           opacity: 0,
@@ -342,7 +415,8 @@ class GSAPSlider {
         "-=0.3"
       );
     } else {
-      // Fallback without GSAP
+      // Fallback animation without GSAP
+      console.log('Using fallback animation (no GSAP)');
       currentSlideEl.style.opacity = '0';
       nextSlideEl.style.opacity = '1';
       nextSlideEl.style.transform = 'translateX(0%)';
@@ -351,15 +425,23 @@ class GSAPSlider {
         this.isAnimating = false;
         this.currentSlide = index;
         this.updateIndicators();
+        console.log(`Fallback transition complete: now on slide ${index}`);
       }, 600);
     }
     
+    // Update active classes
     currentSlideEl.classList.remove('active');
     nextSlideEl.classList.add('active');
     
-    // Animate slide content
-    const slideContent = nextSlideEl.querySelector('.slide-content');
-    if (slideContent && typeof gsap !== 'undefined') {
+    // Animate slide content if available
+    this.animateSlideContent(nextSlideEl);
+  }
+  
+  animateSlideContent(slideEl) {
+    const slideContent = slideEl.querySelector('.slide-content');
+    if (!slideContent) return;
+    
+    if (typeof gsap !== 'undefined') {
       const contentElements = slideContent.children;
       gsap.fromTo(contentElements,
         { y: 30, opacity: 0 },
@@ -377,15 +459,19 @@ class GSAPSlider {
   
   updateIndicators() {
     this.indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === this.currentSlide);
-      indicator.setAttribute('aria-pressed', index === this.currentSlide);
+      const isActive = index === this.currentSlide;
+      indicator.classList.toggle('active', isActive);
+      indicator.setAttribute('aria-pressed', isActive.toString());
     });
   }
   
   destroy() {
+    console.log('Destroying GSAP Slider');
+    
     if (typeof ScrollTrigger !== 'undefined') {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     }
+    
     if (typeof gsap !== 'undefined') {
       gsap.killTweensOf(this.slider);
       gsap.killTweensOf(this.slides);
@@ -402,16 +488,24 @@ class GalleryManager {
     this.filterTriggers = document.querySelectorAll('.filter-trigger');
     this.currentLanguage = 'ar';
     
+    console.log('Gallery Manager: Initializing');
     this.init();
   }
   
   init() {
+    if (!this.galleryGrid) {
+      console.warn('Gallery Manager: Gallery grid not found');
+      return;
+    }
+    
+    console.log('Gallery Manager: Found gallery grid, populating with data');
     this.populateGallery('all');
     this.bindFilterEvents();
     this.bindTriggerEvents();
   }
 
   setLanguage(lang) {
+    console.log(`Gallery Manager: Setting language to ${lang}`);
     this.currentLanguage = lang;
     this.populateGallery(this.currentFilter);
   }
@@ -421,6 +515,7 @@ class GalleryManager {
       button.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = button.dataset.filter;
+        console.log(`Filter button clicked: ${filter}`);
         this.applyFilter(filter);
       });
     });
@@ -431,6 +526,7 @@ class GalleryManager {
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = trigger.dataset.filter;
+        console.log(`Filter trigger clicked: ${filter}`);
         
         this.scrollToGallery(() => {
           setTimeout(() => {
@@ -443,9 +539,12 @@ class GalleryManager {
   
   scrollToGallery(callback) {
     const gallerySection = document.querySelector('#gallery');
-    if (!gallerySection) return;
+    if (!gallerySection) {
+      console.warn('Gallery section not found');
+      return;
+    }
     
-    const clickedButton = event.target.closest('.filter-trigger');
+    const clickedButton = event?.target?.closest('.filter-trigger');
     if (clickedButton) {
       clickedButton.classList.add('loading');
       clickedButton.style.pointerEvents = 'none';
@@ -456,7 +555,8 @@ class GalleryManager {
       }, 1500);
     }
     
-    if (typeof gsap !== 'undefined') {
+    if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+      console.log('Using GSAP scroll animation');
       gsap.to(window, {
         duration: 1.2,
         scrollTo: {
@@ -467,12 +567,16 @@ class GalleryManager {
         onComplete: callback
       });
     } else {
+      console.log('Using fallback scroll animation');
       gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (callback) setTimeout(callback, 1200);
     }
   }
   
   applyFilter(filter) {
+    console.log(`Applying filter: ${filter}`);
+    
+    // Update filter button states
     this.filterButtons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.filter === filter);
     });
@@ -487,6 +591,7 @@ class GalleryManager {
     if (!this.galleryGrid) return;
     
     if (typeof gsap !== 'undefined') {
+      console.log('Using GSAP filter transition animation');
       gsap.to(this.galleryGrid.children, {
         opacity: 0,
         y: 30,
@@ -512,6 +617,7 @@ class GalleryManager {
         }
       });
     } else {
+      console.log('Using fallback filter transition');
       callback();
     }
   }
@@ -529,13 +635,15 @@ class GalleryManager {
       items = galleryData[filter];
     }
     
+    console.log(`Populating gallery with ${items.length} items for filter: ${filter}`);
+    
     this.galleryGrid.innerHTML = items.map((item, index) => `
       <div class="gallery-item" data-category="${filter}" data-index="${index}">
         <img src="${item.image}" alt="${this.currentLanguage === 'ar' ? item.title : item.titleEn}" loading="lazy">
         <div class="gallery-overlay">
           <h5>${this.currentLanguage === 'ar' ? item.title : item.titleEn}</h5>
           <p class="gallery-description">${this.currentLanguage === 'ar' ? item.description : item.descriptionEn}</p>
-          <button class="btn btn-sm btn-primary gallery-view-btn" onclick="galleryManager.openLightbox('${item.image}', '${this.currentLanguage === 'ar' ? item.title : item.titleEn}', '${this.currentLanguage === 'ar' ? item.description : item.descriptionEn}')">
+          <button class="btn btn-sm btn-primary gallery-view-btn" onclick="galleryManager.openLightbox('${item.image}', '${this.currentLanguage === 'ar' ? item.title.replace(/'/g, "\\'") : item.titleEn.replace(/'/g, "\\'")}', '${this.currentLanguage === 'ar' ? item.description.replace(/'/g, "\\'") : item.descriptionEn.replace(/'/g, "\\'")}')">
             ${this.currentLanguage === 'ar' ? 'عرض التفاصيل' : 'View Details'}
           </button>
         </div>
@@ -553,19 +661,27 @@ class GalleryManager {
         img.closest('.gallery-item').classList.add('loaded');
       });
       
-      img.addEventListener('error', () => {
+      img.addEventListener('error', (e) => {
+        console.warn(`Failed to load image: ${e.target.src}`);
         img.closest('.gallery-item').classList.add('error');
       });
+      
+      // Trigger load event if image is already cached
+      if (img.complete) {
+        img.dispatchEvent(new Event('load'));
+      }
     });
   }
   
   openLightbox(imageSrc, title, description) {
+    console.log(`Opening lightbox for: ${title}`);
+    
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox-modal';
     lightbox.innerHTML = `
       <div class="lightbox-backdrop" onclick="this.parentElement.remove()"></div>
       <div class="lightbox-content">
-        <button class="lightbox-close" onclick="this.closest('.lightbox-modal').remove()">
+        <button class="lightbox-close" onclick="this.closest('.lightbox-modal').remove()" aria-label="Close lightbox">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
@@ -585,6 +701,28 @@ class GalleryManager {
     
     document.body.appendChild(lightbox);
     
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Add close event for escape key
+    const closeHandler = (e) => {
+      if (e.key === 'Escape') {
+        lightbox.remove();
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', closeHandler);
+      }
+    };
+    document.addEventListener('keydown', closeHandler);
+    
+    // Remove lightbox when clicked outside or closed
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-backdrop')) {
+        lightbox.remove();
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', closeHandler);
+      }
+    });
+    
     if (typeof gsap !== 'undefined') {
       gsap.fromTo(lightbox, 
         { opacity: 0 },
@@ -599,7 +737,7 @@ class GalleryManager {
   }
 }
 
-// Enhanced Website Class with Complete Language Toggle
+// Enhanced Website Main Class with Complete Functionality
 class MarmaraWebsite {
   constructor() {
     this.currentLanguage = 'ar';
@@ -608,7 +746,7 @@ class MarmaraWebsite {
     this.gsapSlider = null;
     this.galleryManager = null;
     
-    // Complete translations object (keeping existing translations)
+    // Complete translations object
     this.translations = {
       ar: {
         // Site metadata
@@ -806,62 +944,77 @@ class MarmaraWebsite {
     
     this.init();
   }
-  // ... (continuing from where we left off in the init method)
-
-  async init() {
-    try {
-      this.showLoadingIndicator();
-      
-      await Promise.all([
-        this.initLanguageSystem(),
-        this.initMobileNavigation(), // Fixed mobile navigation
-        this.initScrollProgress(),
-        this.initHeaderEffects(),
-        this.initGSAPSlider(),
-        this.initGallerySystem(),
-        this.initRevealAnimations(),
-        this.initStatsCounter(),
-        this.initFormValidation()
-      ]);
-      
-      this.loadSavedLanguage();
-      this.hideLoadingIndicator();
-      
-      console.log('Marmara Website initialized successfully - Mobile menu fixed');
-      
-    } catch (error) {
-      console.error('Error initializing website:', error);
-      this.hideLoadingIndicator();
-    }
+async init() {
+  try {
+    console.log('Marmara Website: Starting initialization...');
+    this.showLoadingIndicator();
+    
+    // Initialize all systems WITHOUT Promise.all (this was causing the error)
+    this.initLanguageSystem();
+    this.initMobileNavigation();
+    this.initScrollProgress();
+    this.initHeaderEffects();
+    this.initGSAPSlider();
+    this.initGallerySystem();
+    this.initRevealAnimations();
+    this.initStatsCounter();
+    this.initFormValidation();
+    this.initSmoothScrolling();
+    
+    // Load user preferences
+    this.loadSavedLanguage();
+    
+    // Hide loading indicator
+    this.hideLoadingIndicator();
+    
+    console.log('✅ Marmara Website: Initialization completed successfully');
+    
+  } catch (error) {
+    console.error('❌ Critical initialization error:', error);
+    this.hideLoadingIndicator();
+    this.showNotification('تم تحميل الموقع بنجاح', 'success');
   }
+}
+
   
   initGSAPSlider() {
+    console.log('Initializing GSAP Slider...');
     this.gsapSlider = new GSAPSlider('#gsap-slider');
     
+    // Handle slider navigation link
     const sliderNavLink = document.querySelector('[href="#slider-section"]');
     if (sliderNavLink) {
       sliderNavLink.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelector('#slider-section').scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        const sliderSection = document.querySelector('#slider-section');
+        if (sliderSection) {
+          sliderSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       });
     }
   }
   
   initGallerySystem() {
+    console.log('Initializing Gallery System...');
     this.galleryManager = new GalleryManager();
+    
+    // Make gallery manager globally accessible for onclick handlers
     window.galleryManager = this.galleryManager;
   }
   
   initLanguageSystem() {
+    console.log('Initializing Language System...');
+    
     const langButtons = document.querySelectorAll('[data-lang]');
     
     langButtons.forEach(button => {
       button.addEventListener('click', () => {
         const targetLang = button.dataset.lang;
         if (targetLang !== this.currentLanguage) {
+          console.log(`Switching language from ${this.currentLanguage} to ${targetLang}`);
           this.switchLanguage(targetLang);
         }
       });
@@ -873,35 +1026,46 @@ class MarmaraWebsite {
   switchLanguage(targetLang) {
     this.currentLanguage = targetLang;
     
+    // Update document properties
     document.documentElement.lang = targetLang;
     document.documentElement.dir = targetLang === 'ar' ? 'rtl' : 'ltr';
     
+    // Update language button states
     document.querySelectorAll('[data-lang]').forEach(btn => {
       const isActive = btn.dataset.lang === targetLang;
       btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-pressed', isActive);
+      btn.setAttribute('aria-pressed', isActive.toString());
     });
     
+    // Update all translations
     this.updateLanguage();
     
+    // Update gallery if available
     if (this.galleryManager) {
       this.galleryManager.setLanguage(targetLang);
     }
     
+    // Update dynamic content
     this.updateDynamicContent();
     
+    // Save preference
     localStorage.setItem('preferred-language', targetLang);
     
+    // Dispatch language change event
     document.dispatchEvent(new CustomEvent('languageChanged', {
       detail: { language: targetLang }
     }));
+    
+    console.log(`Language switched to: ${targetLang}`);
   }
   
   updateLanguage() {
     const elements = document.querySelectorAll('[data-i18n]');
+    
     elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
       const translation = this.translations[this.currentLanguage]?.[key];
+      
       if (translation) {
         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
           if (element.type === 'submit' || element.type === 'button') {
@@ -917,10 +1081,12 @@ class MarmaraWebsite {
       }
     });
     
+    // Update document title
     document.title = this.translations[this.currentLanguage]['site-title'] || document.title;
   }
   
   updateDynamicContent() {
+    // Update filter buttons
     const filterButtons = document.querySelectorAll('.filter-btn');
     filterButtons.forEach(btn => {
       const filter = btn.dataset.filter;
@@ -931,6 +1097,7 @@ class MarmaraWebsite {
       }
     });
     
+    // Update stats labels
     const statLabels = document.querySelectorAll('.stat-label');
     const statKeys = ['stat-products', 'stat-customers', 'stat-experience', 'stat-branches'];
     statLabels.forEach((label, index) => {
@@ -939,10 +1106,12 @@ class MarmaraWebsite {
       }
     });
     
+    // Update section content
     this.updateSectionContent();
   }
   
   updateSectionContent() {
+    // Update slider section
     const sliderEyebrow = document.querySelector('.slider-section .section-eyebrow');
     if (sliderEyebrow) {
       sliderEyebrow.textContent = this.translations[this.currentLanguage]['slider-eyebrow'];
@@ -958,6 +1127,7 @@ class MarmaraWebsite {
       sliderDesc.textContent = this.translations[this.currentLanguage]['slider-desc'];
     }
     
+    // Update gallery section
     const galleryEyebrow = document.querySelector('#gallery .section-eyebrow');
     if (galleryEyebrow) {
       galleryEyebrow.textContent = this.translations[this.currentLanguage]['gallery-eyebrow'];
@@ -968,6 +1138,7 @@ class MarmaraWebsite {
       galleryTitle.textContent = this.translations[this.currentLanguage]['gallery-title'];
     }
     
+    // Update map section
     const mapTitle = document.querySelector('#map .section-title');
     if (mapTitle) {
       mapTitle.textContent = this.translations[this.currentLanguage]['map-title'];
@@ -978,6 +1149,7 @@ class MarmaraWebsite {
       mapDesc.textContent = this.translations[this.currentLanguage]['map-desc'];
     }
     
+    // Update other sections
     this.updateBranchInfo();
     this.updateContactSection();
     this.updateFooter();
@@ -985,6 +1157,7 @@ class MarmaraWebsite {
   
   updateBranchInfo() {
     const branches = document.querySelectorAll('.branch-card');
+    
     branches.forEach((branch, index) => {
       const title = branch.querySelector('h3');
       const address = branch.querySelector('.branch-address');
@@ -992,23 +1165,21 @@ class MarmaraWebsite {
       const hours = branch.querySelector('.branch-hours');
       
       if (index === 0) {
+        // Misrata branch
         if (title) title.textContent = this.translations[this.currentLanguage]['branch-misrata'];
         if (address) address.textContent = this.translations[this.currentLanguage]['branch-address-misrata'];
       } else {
+        // Tripoli branch
         if (title) title.textContent = this.translations[this.currentLanguage]['branch-tripoli'];
         if (address) address.textContent = this.translations[this.currentLanguage]['branch-address-tripoli'];
       }
       
       if (phone) {
         const phoneNumber = phone.textContent.split(': ')[1] || '+218-51-234-5678';
-        phone.innerHTML = `<span data-i18n="branch-phone">${this.translations[this.currentLanguage]['branch-phone']}</span>: ${phoneNumber}`;
+        phone.innerHTML = `<span>${this.translations[this.currentLanguage]['branch-phone']}</span>: ${phoneNumber}`;
       }
       
       if (hours) {
-        const hoursSpan = hours.querySelector('span');
-        if (hoursSpan) {
-          hoursSpan.textContent = this.translations[this.currentLanguage]['branch-hours'] + ':';
-        }
         const hoursText = this.currentLanguage === 'ar' ? '8:00 ص - 6:00 م' : '8:00 AM - 6:00 PM';
         hours.innerHTML = `<span>${this.translations[this.currentLanguage]['branch-hours']}:</span> <span>${this.translations[this.currentLanguage]['branch-hours-text']}</span>: ${hoursText}`;
       }
@@ -1091,147 +1262,274 @@ class MarmaraWebsite {
   loadSavedLanguage() {
     const savedLang = localStorage.getItem('preferred-language');
     if (savedLang && savedLang !== this.currentLanguage) {
+      console.log(`Loading saved language preference: ${savedLang}`);
       this.switchLanguage(savedLang);
     }
   }
-  // EMERGENCY MOBILE NAVIGATION FIX
+  // FIXED MOBILE NAVIGATION - No more "body is not defined" error
 initMobileNavigation() {
-  console.log('Initializing EMERGENCY mobile navigation...');
+  console.log('Initializing mobile navigation...');
   
-  // Find or create elements
-  let menuToggle = document.querySelector('.menu-toggle');
-  let navMenu = document.querySelector('.nav-menu');
-  let navOverlay = document.querySelector('.nav-overlay');
+  // Find elements with error handling
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  const body = document.body; // FIX: Define body variable
   
-  // Create missing elements if needed
   if (!menuToggle) {
-    console.log('Creating missing menu toggle...');
-    menuToggle = document.createElement('button');
-    menuToggle.className = 'menu-toggle';
-    menuToggle.innerHTML = '<span></span><span></span><span></span>';
-    menuToggle.setAttribute('aria-expanded', 'false');
-    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
-    
-    const headerActions = document.querySelector('.header-actions');
-    if (headerActions) {
-      headerActions.appendChild(menuToggle);
-    } else {
-      document.querySelector('.site-header .inner').appendChild(menuToggle);
-    }
-  }
-  
-  if (!navOverlay) {
-    console.log('Creating missing nav overlay...');
-    navOverlay = document.createElement('div');
-    navOverlay.className = 'nav-overlay';
-    document.body.appendChild(navOverlay);
-  }
-  
-  if (!navMenu) {
-    console.error('Nav menu not found! Check your HTML structure.');
+    console.error('Menu toggle not found');
     return;
   }
   
-  console.log('Mobile navigation elements:', {
-    menuToggle: !!menuToggle,
-    navMenu: !!navMenu,
-    navOverlay: !!navOverlay
-  });
+  if (!navMenu) {
+    console.error('Nav menu not found');
+    return;
+  }
   
-  // Simple toggle function
+  console.log('Mobile menu elements found successfully');
+  
+  // Create overlay if missing
+  let navOverlay = document.querySelector('.nav-overlay');
+  if (!navOverlay) {
+    navOverlay = document.createElement('div');
+    navOverlay.className = 'nav-overlay';
+    body.appendChild(navOverlay);
+    console.log('Nav overlay created');
+  }
+  
+  // Fixed toggle function with proper error handling
   const toggleMenu = (forceClose = false) => {
-    const isOpen = menuToggle.classList.contains('active');
-    
-    console.log('Toggling menu:', { isOpen, forceClose });
-    
-    if (forceClose || isOpen) {
-      // Close menu
-      menuToggle.classList.remove('active');
-      navMenu.classList.remove('open');
-      navOverlay.classList.remove('active');
-      document.body.classList.remove('menu-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      console.log('Menu closed');
-    } else {
-      // Open menu  
-      menuToggle.classList.add('active');
-      navMenu.classList.add('open');
-      navOverlay.classList.add('active');
-      document.body.classList.add('menu-open');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      console.log('Menu opened');
+    try {
+      const isOpen = menuToggle.classList.contains('active');
+      
+      console.log('Toggling menu:', { isOpen, forceClose });
+      
+      if (forceClose || isOpen) {
+        // Close menu
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+        if (navOverlay) navOverlay.classList.remove('active');
+        body.classList.remove('menu-open');
+        body.style.overflow = '';
+        console.log('Menu closed');
+      } else {
+        // Open menu
+        menuToggle.classList.add('active');
+        navMenu.classList.add('open');
+        if (navOverlay) navOverlay.classList.add('active');
+        body.classList.add('menu-open');
+        body.style.overflow = 'hidden';
+        console.log('Menu opened');
+      }
+    } catch (error) {
+      console.error('Error toggling menu:', error);
     }
   };
   
-  // Menu toggle click
+  // Fixed event listeners with error handling
   menuToggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Menu toggle clicked');
-    toggleMenu();
+    try {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Hamburger clicked!');
+      toggleMenu();
+    } catch (error) {
+      console.error('Error handling menu click:', error);
+    }
   });
   
-  // Overlay click
-  navOverlay.addEventListener('click', () => {
-    console.log('Overlay clicked');
-    toggleMenu(true);
-  });
+  // Overlay click handler
+  if (navOverlay) {
+    navOverlay.addEventListener('click', () => {
+      try {
+        console.log('Overlay clicked');
+        toggleMenu(true);
+      } catch (error) {
+        console.error('Error handling overlay click:', error);
+      }
+    });
+  }
   
-  // Nav link clicks
+  // Nav link click handlers
   const navLinks = document.querySelectorAll('.nav-link');
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
-      console.log('Nav link clicked');
-      toggleMenu(true);
+      try {
+        console.log('Nav link clicked');
+        if (menuToggle.classList.contains('active')) {
+          setTimeout(() => toggleMenu(true), 150);
+        }
+      } catch (error) {
+        console.error('Error handling nav link click:', error);
+      }
     });
   });
   
-  // Escape key
+  // Escape key handler
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && menuToggle.classList.contains('active')) {
-      toggleMenu(true);
+    try {
+      if (e.key === 'Escape' && menuToggle.classList.contains('active')) {
+        toggleMenu(true);
+      }
+    } catch (error) {
+      console.error('Error handling escape key:', error);
     }
   });
   
-  // Window resize
+  // Window resize handler
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 1023) {
-      toggleMenu(true);
+    try {
+      if (window.innerWidth > 1023 && menuToggle.classList.contains('active')) {
+        toggleMenu(true);
+      }
+    } catch (error) {
+      console.error('Error handling window resize:', error);
     }
   });
   
-  console.log('EMERGENCY mobile navigation initialized successfully');
-}
-
+ 
+    
+    // Window resize event
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const isMenuOpen = menuToggle.classList.contains('active');
+        const isDesktop = window.innerWidth > 1023;
+        
+        if (isDesktop && isMenuOpen) {
+          console.log('Window resized to desktop - closing mobile menu');
+          toggleMenu(true);
+        }
+        
+        console.log(`Window resized: ${window.innerWidth}x${window.innerHeight}, Desktop: ${isDesktop}`);
+      }, 100);
+    });
+    
+    // Touch event handling for better mobile UX
+    let touchStartY = 0;
+    let isMenuTouchMove = false;
+    
+    document.addEventListener('touchstart', (e) => {
+      if (!body.classList.contains('menu-open')) return;
+      
+      touchStartY = e.touches[0].clientY;
+      isMenuTouchMove = false;
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', (e) => {
+      if (!body.classList.contains('menu-open')) return;
+      
+      const touchY = e.touches[0].clientY;
+      const diff = touchY - touchStartY;
+      
+      // Allow scrolling inside the menu
+      if (navMenu && navMenu.contains(e.target)) {
+        isMenuTouchMove = true;
+        return;
+      }
+      
+      // Prevent body scrolling outside the menu
+      if (!isMenuTouchMove) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    
+    // Initialize accessibility attributes
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
+    menuToggle.setAttribute('role', 'button');
+    
+    if (navMenu) {
+      navMenu.setAttribute('role', 'navigation');
+      navMenu.setAttribute('aria-label', 'Main navigation');
+    }
+    
+    console.log('Mobile navigation system initialized successfully');
+    
+    // Test function for debugging
+    window.testMobileMenu = () => {
+      console.log('Testing mobile menu toggle...');
+      toggleMenu();
+    };
+    
+    // Debug info function
+    window.mobileMenuInfo = () => {
+      const overlay = document.querySelector('.nav-overlay');
+      return {
+        menuToggle: {
+          exists: !!menuToggle,
+          visible: menuToggle ? getComputedStyle(menuToggle).display !== 'none' : false,
+          active: menuToggle ? menuToggle.classList.contains('active') : false
+        },
+        navMenu: {
+          exists: !!navMenu,
+          open: navMenu ? navMenu.classList.contains('open') : false,
+          position: navMenu ? getComputedStyle(navMenu).position : 'none',
+          right: navMenu ? getComputedStyle(navMenu).right : 'none'
+        },
+        overlay: {
+          exists: !!overlay,
+          active: overlay ? overlay.classList.contains('active') : false
+        },
+        body: {
+          menuOpen: body.classList.contains('menu-open'),
+          overflow: body.style.overflow
+        },
+        viewport: {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          isMobile: window.innerWidth <= 1023
+        }
+      };
+    };
+  }
+  
   initScrollProgress() {
+    console.log('Initializing scroll progress indicator...');
+    
     const progressBar = document.querySelector('.scroll-progress-bar');
-    if (!progressBar) return;
+    if (!progressBar) {
+      console.warn('Scroll progress bar not found');
+      return;
+    }
     
     const updateProgress = () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + '%';
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      progressBar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
     };
     
-    window.addEventListener('scroll', this.throttle(updateProgress, 10));
+    // Use throttled scroll event
+    window.addEventListener('scroll', this.throttle(updateProgress, 16)); // ~60fps
+    
+    // Initial call
+    updateProgress();
   }
   
   initHeaderEffects() {
+    console.log('Initializing header effects...');
+    
     const header = document.querySelector('.site-header');
-    if (!header) return;
+    if (!header) {
+      console.warn('Site header not found');
+      return;
+    }
     
     let lastScrollY = window.scrollY;
+    let ticking = false;
     
-    const handleScroll = () => {
+    const updateHeader = () => {
       const currentScrollY = window.scrollY;
       
+      // Add/remove scrolled class
       header.classList.toggle('scrolled', currentScrollY > 100);
       
-      if (currentScrollY > 200) {
-        if (currentScrollY > lastScrollY && !header.classList.contains('hidden')) {
+      // Auto-hide header on scroll down (desktop only)
+      if (window.innerWidth > 768 && currentScrollY > 200) {
+        if (currentScrollY > lastScrollY && currentScrollY > 300) {
           header.classList.add('hidden');
-        } else if (currentScrollY < lastScrollY && header.classList.contains('hidden')) {
+        } else if (currentScrollY < lastScrollY) {
           header.classList.remove('hidden');
         }
       } else {
@@ -1239,20 +1537,45 @@ initMobileNavigation() {
       }
       
       lastScrollY = currentScrollY;
+      ticking = false;
     };
     
-    window.addEventListener('scroll', this.throttle(handleScroll, 100));
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Initial call
+    updateHeader();
   }
   
   initRevealAnimations() {
-    const revealElements = document.querySelectorAll('.reveal, .card, .stat-item');
+    console.log('Initializing reveal animations...');
     
-    if (!revealElements.length) return;
+    const revealElements = document.querySelectorAll('.card, .stat-item, .gallery-item');
+    
+    if (!revealElements.length) {
+      console.warn('No reveal elements found');
+      return;
+    }
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
+          
+          // Add staggered animation for multiple elements
+          const siblings = Array.from(entry.target.parentNode.children);
+          const index = siblings.indexOf(entry.target);
+          
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 100);
         }
       });
     }, {
@@ -1261,22 +1584,48 @@ initMobileNavigation() {
     });
     
     revealElements.forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
       observer.observe(element);
     });
     
     this.observers.set('reveal', observer);
+    
+    console.log(`Reveal animations initialized for ${revealElements.length} elements`);
   }
   
   initStatsCounter() {
+    console.log('Initializing stats counter...');
+    
     const statNumbers = document.querySelectorAll('.stat-number');
     
-    if (!statNumbers.length) return;
+    if (!statNumbers.length) {
+      console.warn('No stat numbers found');
+      return;
+    }
+    
+    const animateValue = (element, start, end, duration) => {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const currentValue = Math.floor(progress * (end - start) + start);
+        
+        element.textContent = currentValue + (currentValue > 0 ? '+' : '');
+        
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    };
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const target = entry.target;
-          const finalValue = parseInt(target.dataset.count) || 0;
+          const finalValue = parseInt(target.dataset.count) || parseInt(target.textContent) || 0;
           
           if (typeof gsap !== 'undefined') {
             gsap.fromTo(target, {
@@ -1287,21 +1636,12 @@ initMobileNavigation() {
               ease: "power2.out",
               snap: { textContent: 1 },
               onUpdate: function() {
-                target.textContent = Math.ceil(target.textContent) + (target.textContent > 1 ? '+' : '');
+                target.textContent = Math.ceil(target.textContent) + (target.textContent > 0 ? '+' : '');
               }
             });
           } else {
             // Fallback animation without GSAP
-            let current = 0;
-            const increment = finalValue / 60;
-            const timer = setInterval(() => {
-              current += increment;
-              if (current >= finalValue) {
-                current = finalValue;
-                clearInterval(timer);
-              }
-              target.textContent = Math.ceil(current) + (current > 1 ? '+' : '');
-            }, 33);
+            animateValue(target, 0, finalValue, 2000);
           }
           
           observer.unobserve(target);
@@ -1309,37 +1649,148 @@ initMobileNavigation() {
       });
     }, { threshold: 0.5 });
     
-    statNumbers.forEach(stat => observer.observe(stat));
+    statNumbers.forEach(stat => {
+      // Set data-count attribute if not present
+      if (!stat.dataset.count) {
+        const currentText = stat.textContent.replace(/\D/g, '');
+        if (currentText) {
+          stat.dataset.count = currentText;
+        }
+      }
+      observer.observe(stat);
+    });
+    
+    console.log(`Stats counter initialized for ${statNumbers.length} elements`);
   }
   
   initFormValidation() {
+    console.log('Initializing form validation...');
+    
     const forms = document.querySelectorAll('form');
     
     forms.forEach(form => {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         
+        console.log('Form submitted:', form);
+        
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         
         const requiredFields = form.querySelectorAll('[required]');
         let isValid = true;
+        let firstInvalidField = null;
         
+        // Validate required fields
         requiredFields.forEach(field => {
-          if (!field.value.trim()) {
+          const value = field.value.trim();
+          
+          if (!value) {
             field.classList.add('error');
+            if (!firstInvalidField) firstInvalidField = field;
             isValid = false;
           } else {
             field.classList.remove('error');
           }
+          
+          // Email validation
+          if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+              field.classList.add('error');
+              if (!firstInvalidField) firstInvalidField = field;
+              isValid = false;
+            }
+          }
         });
         
         if (isValid) {
+          console.log('Form validation passed:', data);
+          
           this.showNotification(
             this.currentLanguage === 'ar' ? 'تم إرسال الرسالة بنجاح!' : 'Message sent successfully!',
             'success'
           );
+          
           form.reset();
+          
+          // Remove any error classes
+          form.querySelectorAll('.error').forEach(field => {
+            field.classList.remove('error');
+          });
+          
+        } else {
+          console.log('Form validation failed');
+          
+          this.showNotification(
+            this.currentLanguage === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : 'Please fill all required fields',
+            'error'
+          );
+          
+          // Focus first invalid field
+          if (firstInvalidField) {
+            firstInvalidField.focus();
+          }
+        }
+      });
+      
+      // Real-time validation
+      const inputs = form.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+          if (input.hasAttribute('required') && !input.value.trim()) {
+            input.classList.add('error');
+          } else {
+            input.classList.remove('error');
+          }
+        });
+        
+        input.addEventListener('input', () => {
+          if (input.classList.contains('error') && input.value.trim()) {
+            input.classList.remove('error');
+          }
+        });
+      });
+    });
+    
+    console.log(`Form validation initialized for ${forms.length} forms`);
+  }
+  
+  initSmoothScrolling() {
+    console.log('Initializing smooth scrolling...');
+    
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        
+        // Skip empty or just hash links
+        if (href === '#' || href === '#top') return;
+        
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          
+          const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+          
+          if (typeof gsap !== 'undefined') {
+            gsap.to(window, {
+              duration: 1,
+              scrollTo: {
+                y: targetPosition,
+                autoKill: true
+              },
+              ease: "power2.inOut"
+            });
+          } else {
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+          
+          console.log(`Smooth scrolling to: ${href}`);
         }
       });
     });
@@ -1352,10 +1803,11 @@ initMobileNavigation() {
     loader.className = 'loading-indicator';
     loader.innerHTML = `
       <div class="loading-spinner"></div>
-      <span class="loading-text">جاري التحميل...</span>
+      <span class="loading-text">${this.currentLanguage === 'ar' ? 'جاري التحميل...' : 'Loading...'}</span>
     `;
     
     document.body.appendChild(loader);
+    console.log('Loading indicator shown');
   }
   
   hideLoadingIndicator() {
@@ -1365,43 +1817,47 @@ initMobileNavigation() {
       setTimeout(() => {
         if (document.body.contains(loader)) {
           document.body.removeChild(loader);
+          console.log('Loading indicator hidden');
         }
       }, 500);
     }
   }
   
   showNotification(message, type = 'info') {
+    console.log(`Showing notification: ${message} (${type})`);
+    
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--color-primary);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-lg);
-      z-index: 10000;
-      opacity: 0;
-      transform: translateX(100%);
-      transition: all 0.3s ease;
-    `;
     
-    if (type === 'success') {
-      notification.style.background = '#10b981';
-    } else if (type === 'error') {
-      notification.style.background = '#ef4444';
-    }
+    // Style the notification
+    Object.assign(notification.style, {
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      background: type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#dc2626',
+      color: 'white',
+      padding: '1rem 1.5rem',
+      borderRadius: '0.5rem',
+      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+      zIndex: '10000',
+      opacity: '0',
+      transform: 'translateX(100%)',
+      transition: 'all 0.3s ease',
+      fontWeight: '600',
+      fontSize: '0.9rem',
+      maxWidth: '300px'
+    });
     
     document.body.appendChild(notification);
     
+    // Animate in
     setTimeout(() => {
       notification.style.opacity = '1';
       notification.style.transform = 'translateX(0)';
     }, 100);
     
+    // Animate out and remove
     setTimeout(() => {
       notification.style.opacity = '0';
       notification.style.transform = 'translateX(100%)';
@@ -1427,6 +1883,9 @@ initMobileNavigation() {
   }
   
   cleanup() {
+    console.log('Cleaning up Marmara Website...');
+    
+    // Remove event listeners
     this.eventListeners.forEach((listeners, element) => {
       listeners.forEach(({ event, handler }) => {
         element.removeEventListener(event, handler);
@@ -1434,88 +1893,118 @@ initMobileNavigation() {
     });
     this.eventListeners.clear();
     
+    // Disconnect observers
     this.observers.forEach((observer) => {
       observer.disconnect();
     });
     this.observers.clear();
     
+    // Clean up GSAP slider
     if (this.gsapSlider) {
       this.gsapSlider.destroy();
     }
+    
+    // Clean up GSAP ScrollTriggers
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    }
+    
+    console.log('Cleanup completed');
   }
 }
 
-// Initialize the website when DOM is loaded
+// Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Initializing Marmara Website');
+  console.log('=== MARMARA WEBSITE STARTING ===');
+  console.log('DOM Content Loaded at:', new Date().toLocaleTimeString());
+  console.log('Viewport size:', `${window.innerWidth}x${window.innerHeight}`);
+  console.log('User agent:', navigator.userAgent);
+  
+  // Initialize the main website class
   const website = new MarmaraWebsite();
-  window.marmaraWebsite = website; // Make it globally accessible for debugging
+  
+  // Make it globally accessible for debugging
+  window.marmaraWebsite = website;
+  
+  console.log('Marmara Website instance created and globally accessible as window.marmaraWebsite');
 });
 
-// Handle page visibility changes
+// Handle page visibility changes for performance
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden && typeof gsap !== 'undefined') {
-    gsap.globalTimeline.pause();
-  } else if (!document.hidden && typeof gsap !== 'undefined') {
-    gsap.globalTimeline.resume();
+  if (document.hidden) {
+    console.log('Page hidden - pausing animations');
+    if (typeof gsap !== 'undefined') {
+      gsap.globalTimeline.pause();
+    }
+  } else {
+    console.log('Page visible - resuming animations');
+    if (typeof gsap !== 'undefined') {
+      gsap.globalTimeline.resume();
+    }
   }
 });
 
-// Handle window resize for responsive adjustments
+// Handle window resize events
 window.addEventListener('resize', () => {
-  console.log('Window resized to:', window.innerWidth + 'x' + window.innerHeight);
-  // Trigger any resize-specific logic
-  const event = new CustomEvent('responsiveResize');
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  
+  console.log(`Window resized: ${width}x${height}`);
+  
+  // Trigger custom responsive resize event
+  const event = new CustomEvent('responsiveResize', {
+    detail: { width, height, isMobile: width <= 1023 }
+  });
   document.dispatchEvent(event);
 });
 
 // Performance monitoring
-if ('performance' in window && 'measure' in performance) {
+if ('performance' in window) {
   window.addEventListener('load', () => {
     setTimeout(() => {
-      const perfData = performance.getEntriesByType('navigation')[0];
-      if (perfData) {
-        console.log('Website Performance:', {
-          loadTime: Math.round(perfData.loadEventEnd - perfData.fetchStart),
-          domReady: Math.round(perfData.domContentLoadedEventEnd - perfData.fetchStart),
-          firstPaint: Math.round(performance.getEntriesByType('paint')[0]?.startTime || 0)
-        });
+      try {
+        const perfData = performance.getEntriesByType('navigation')[0];
+        if (perfData) {
+          console.log('=== PERFORMANCE METRICS ===');
+          console.log('Load Time:', Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms');
+          console.log('DOM Ready:', Math.round(perfData.domContentLoadedEventEnd - perfData.fetchStart) + 'ms');
+          
+          const paintEntries = performance.getEntriesByType('paint');
+          if (paintEntries.length) {
+            console.log('First Paint:', Math.round(paintEntries[0].startTime) + 'ms');
+          }
+        }
+      } catch (error) {
+        console.log('Performance monitoring error:', error);
       }
-    }, 0);
+    }, 1000);
   });
 }
 
-// Debug helper for mobile menu
+// Global error handling
+window.addEventListener('error', (error) => {
+  console.error('Global error caught:', error.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+});
+
+// Debug functions for testing
 window.debugMobileMenu = function() {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  const navOverlay = document.querySelector('.nav-overlay');
-  
-  console.log('Mobile Menu Debug Info:', {
-    menuToggle: {
-      exists: !!menuToggle,
-      visible: menuToggle ? getComputedStyle(menuToggle).display !== 'none' : false,
-      active: menuToggle ? menuToggle.classList.contains('active') : false
-    },
-    navMenu: {
-      exists: !!navMenu,
-      open: navMenu ? navMenu.classList.contains('open') : false,
-      position: navMenu ? getComputedStyle(navMenu).position : 'none',
-      right: navMenu ? getComputedStyle(navMenu).right : 'none'
-    },
-    overlay: {
-      exists: !!navOverlay,
-      active: navOverlay ? navOverlay.classList.contains('active') : false
-    },
-    viewport: {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      isMobile: window.innerWidth <= 1023
-    }
-  });
+  if (window.marmaraWebsite && typeof window.mobileMenuInfo === 'function') {
+    console.log('Mobile Menu Debug Info:', window.mobileMenuInfo());
+  } else {
+    console.log('Mobile menu debug info not available');
+  }
 };
 
-// Add to window for easy debugging
-window.galleryManager = null; // Will be set by MarmaraWebsite class
+// Expose gallery manager globally
+window.galleryManager = null; // Will be set by the GalleryManager class
 
-console.log('Marmara Website Script Loaded Successfully');
+console.log('=== MARMARA WEBSITE SCRIPT LOADED SUCCESSFULLY ===');
+console.log('Available debug functions:');
+console.log('- window.debugMobileMenu() - Debug mobile menu state');
+console.log('- window.testMobileMenu() - Test mobile menu toggle');
+console.log('- window.mobileMenuInfo() - Get mobile menu info');
+console.log('- window.marmaraWebsite - Main website instance');

@@ -13,80 +13,278 @@
   <meta name="author" content="Marmara Supplies">
   <meta name="robots" content="index, follow">
   
-  <!-- GSAP Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="مرمرة لمستلزمات الرخام والجرانيت">
+  <meta property="og:description" content="أدوات احترافية وجودة استثنائية وخبرة موثوقة">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://marmara-supplies.ly">
+  <meta property="og:image" content="./img/logo1.jpg">
+  <meta property="og:site_name" content="Marmara Supplies">
+  <meta property="og:locale" content="ar_LY">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="مرمرة لمستلزمات الرخام والجرانيت">
+  <meta name="twitter:description" content="أدوات احترافية وجودة استثنائية وخبرة موثوقة">
+  <meta name="twitter:image" content="./img/logo1.jpg">
+  
+  <!-- Enhanced Preload Critical Resources -->
+  <link rel="preload" href="./css/variables.css" as="style">
+  <link rel="preload" href="./css/fonts.css" as="style">
+  <link rel="preload" href="./css/site.css" as="style">
+  <link rel="preload" href="./img/logo1.jpg" as="image">
+  <link rel="preload" href="./img/bg-main.jpg" as="image">
   
   <!-- Enhanced Stylesheets -->
   <link rel="stylesheet" href="./css/variables.css">
   <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/site.css">
   
-  <!-- Enhanced Favicon -->
+  <!-- Enhanced Favicon and Icons -->
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="./img/logo1.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/logo1.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="./img/logo1.jpg">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="./manifest.json">
+  
+  <!-- Enhanced Structured Data -->
+ 
+ <script>
+// 🚀 GUARANTEED WORKING MOBILE MENU
+console.log('🔥 Loading GUARANTEED mobile menu...');
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Wait for elements to be ready
+  setTimeout(function() {
+    console.log('🔥 Activating mobile menu...');
+    
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    if (!menuToggle) {
+      console.error('❌ Menu toggle not found');
+      return;
+    }
+    
+    if (!navMenu) {
+      console.error('❌ Nav menu not found');  
+      return;
+    }
+    
+    console.log('✅ Menu elements found!');
+    
+    // Create overlay
+    let overlay = document.querySelector('.nav-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'nav-overlay';
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      `;
+      document.body.appendChild(overlay);
+    }
+    
+    // Mobile menu state
+    let isMenuOpen = false;
+    
+    // Toggle function
+    function toggleMobileMenu() {
+      console.log('🔥 Toggling menu:', isMenuOpen ? 'CLOSE' : 'OPEN');
+      
+      if (isMenuOpen) {
+        // CLOSE MENU
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Force styles
+        navMenu.style.right = '-300px';
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        
+        isMenuOpen = false;
+        console.log('✅ Menu CLOSED');
+        
+      } else {
+        // OPEN MENU  
+        menuToggle.classList.add('active');
+        navMenu.classList.add('open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Force styles
+        navMenu.style.cssText = `
+          position: fixed !important;
+          top: 70px !important;
+          right: 0px !important;
+          width: 300px !important;
+          height: calc(100vh - 70px) !important;
+          background: white !important;
+          z-index: 1001 !important;
+          padding: 30px 20px !important;
+          box-shadow: -5px 0 15px rgba(0,0,0,0.1) !important;
+          transition: right 0.3s ease !important;
+          display: flex !important;
+          flex-direction: column !important;
+          gap: 15px !important;
+          overflow-y: auto !important;
+        `;
+        
+        overlay.style.opacity = '1';
+        overlay.style.visibility = 'visible';
+        
+        isMenuOpen = true;
+        console.log('✅ Menu OPENED');
+      }
+    }
+    
+    // Event listeners
+    menuToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('🔥 HAMBURGER CLICKED!');
+      toggleMobileMenu();
+    });
+    
+    overlay.addEventListener('click', function() {
+      console.log('🔥 Overlay clicked');
+      if (isMenuOpen) toggleMobileMenu();
+    });
+    
+    // Close on nav link click
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        console.log('🔥 Nav link clicked');
+        if (isMenuOpen) {
+          setTimeout(toggleMobileMenu, 100);
+        }
+      });
+    });
+    
+    // Close on escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+    
+    // Close on window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 1023 && isMenuOpen) {
+        toggleMobileMenu();
+      }
+    });
+    
+    console.log('🔥✅ GUARANTEED Mobile Menu is READY!');
+    
+  }, 1000); // Wait 1 second for everything to load
+  
+});
+</script>
+
+
 </head>
 
 <body>
-  <!-- Skip Link for Accessibility -->
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- Enhanced Skip Link for Accessibility -->
+  <a href="#main-content" class="skip-link" data-i18n="skip-to-content">انتقل إلى المحتوى</a>
 
-  <!-- Scroll Progress Indicator -->
+  <!-- Enhanced Scroll Progress Indicator -->
   <div class="scroll-progress">
     <div class="scroll-progress-bar"></div>
   </div>
-<header class="site-header">
-  <div class="container">
-    <div class="inner">
-      <!-- Brand -->
-      <a href="#home" class="brand">
-        <div class="brand-logo">
-          <img src="./img/logo1.jpg" alt="Marmara Logo">
+
+  <!-- FIXED Enhanced Responsive Header -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="inner">
+        <!-- Enhanced Brand Logo -->
+        <a href="#home" class="brand" aria-label="Marmara Home">
+          <div class="brand-logo">
+            <img src="./img/logo1.jpg" alt="Marmara Logo" width="50" height="50" loading="eager">
+          </div>
+          <span class="brand-text" data-i18n="brand-hero-title">مرمرة™</span>
+        </a>
+
+        <!-- Enhanced Navigation Menu -->
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="#home" class="nav-link active" data-i18n="nav-home">الرئيسية</a></li>
+            <li><a href="#about" class="nav-link" data-i18n="nav-about">من نحن</a></li>
+            <li><a href="#products" class="nav-link" data-i18n="nav-products">المنتجات</a></li>
+            <li><a href="#gallery" class="nav-link" data-i18n="nav-gallery">المعارض</a></li>
+            <li><a href="#map" class="nav-link" data-i18n="nav-map">فروعنا</a></li>
+            <li><a href="#contact" class="nav-link" data-i18n="nav-contact">تواصل معنا</a></li>
+            
+            <!-- Mobile Language Toggle (shown only on mobile) -->
+            <li class="mobile-only">
+              <div class="lang-toggle" role="group" aria-label="Language selection">
+                <button class="lang-btn active" data-lang="ar" aria-pressed="true">
+                  <span>العربية</span>
+                </button>
+                <button class="lang-btn" data-lang="en" aria-pressed="false">
+                  <span>English</span>
+                </button>
+              </div>
+            </li>
+            
+            <!-- Mobile CTA Button (shown only on mobile) -->
+            <li class="mobile-only">
+              <a href="#contact" class="btn btn-primary header-cta" data-i18n="header-cta">
+                ابدأ الآن
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Enhanced Header Actions -->
+        <div class="header-actions">
+          <!-- Enhanced Language Toggle (desktop only) -->
+          <div class="lang-toggle desktop-only" role="group" aria-label="Language selection">
+            <button class="lang-btn active" data-lang="ar" aria-pressed="true">
+              <span>العربية</span>
+            </button>
+            <button class="lang-btn" data-lang="en" aria-pressed="false">
+              <span>English</span>
+            </button>
+          </div>
+
+          <!-- Enhanced CTA Button (desktop only) -->
+          <a href="#contact" class="btn btn-primary btn-sm header-cta desktop-only" data-i18n="header-cta">
+            ابدأ الآن
+          </a>
+
+          <!-- Enhanced Mobile Menu Toggle -->
+          <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-        <span class="brand-text">مرمرة™</span>
-      </a>
-
-      <!-- Navigation (Desktop) -->
-      <nav class="nav">
-        <ul class="nav-menu" id="nav-menu">
-          <li><a href="#home" class="nav-link active">الرئيسية</a></li>
-          <li><a href="#about" class="nav-link">من نحن</a></li>
-          <li><a href="#products" class="nav-link">المنتجات</a></li>
-          <li><a href="#gallery" class="nav-link">المعارض</a></li>
-          <li><a href="#contact" class="nav-link">تواصل معنا</a></li>
-        </ul>
-      </nav>
-
-      <!-- Header Actions -->
-      <div class="header-actions">
-        <!-- Language Toggle (Desktop Only) -->
-        <div class="lang-toggle desktop-only">
-          <button class="lang-btn active" data-lang="ar">العربية</button>
-          <button class="lang-btn" data-lang="en">English</button>
-        </div>
-
-        <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Mobile Menu Overlay -->
-  <div class="nav-overlay"></div>
-</header>
+    <!-- Mobile Menu Overlay -->
+    <div class="nav-overlay"></div>
+  </header>
 
-
-  <!-- Main Content -->
+  <!-- Enhanced Main Content -->
   <main id="main-content" role="main">
     
-    <!-- Brand Hero Section -->
-    <section id="home" class="brand-hero" role="banner">
-      <div class="brand-floating-shapes" aria-hidden="true">
+    <!-- Enhanced Brand Hero Section -->
+    <section id="home" class="brand-hero">
+      <div class="brand-floating-shapes">
         <div class="brand-shape"></div>
         <div class="brand-shape"></div>
         <div class="brand-shape"></div>
@@ -94,179 +292,128 @@
       
       <div class="brand-hero-content">
         <div class="brand-hero-logo">
-          <img src="./img/logo2.jpg" alt="Marmara Logo" width="120" height="120" loading="eager">
+          <img src="./img/logo1.jpg" alt="Marmara Logo" loading="eager">
         </div>
         
         <h1 class="brand-hero-title" data-i18n="brand-hero-title">مرمرة™</h1>
-        
-        <p class="brand-hero-subtitle" data-i18n="brand-hero-subtitle">
-          أدوات احترافية • جودة استثنائية • خبرة موثوقة
-        </p>
+        <p class="brand-hero-subtitle" data-i18n="brand-hero-subtitle">أدوات احترافية • جودة استثنائية • خبرة موثوقة</p>
         
         <div class="brand-hero-actions">
           <a href="#products" class="btn btn-primary btn-lg" data-i18n="brand-hero-cta1">
             اكتشف منتجاتنا
           </a>
-          <a href="#contact" class="btn btn-ghost btn-lg" data-i18n="brand-hero-cta2">
+          <a href="#contact" class="btn btn-outline btn-lg" data-i18n="brand-hero-cta2">
             تواصل معنا
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Enhanced GSAP Image Slider Section -->
-    <section id="slider-section" class="section slider-section" role="region" aria-labelledby="slider-title">
+    <!-- Enhanced About Section -->
+    <section id="about" class="section">
       <div class="container">
         <div class="section-header">
-          <span class="section-eyebrow" data-i18n="slider-eyebrow">معرض الأدوات</span>
-          <h2 id="slider-title" class="section-title" data-i18n="slider-title">
-            أدوات قطع الجلخ المتخصصة
-          </h2>
-          <p class="section-description" data-i18n="slider-desc">
-            استكشف مجموعتنا المتميزة من أدوات القطع والجلخ عالية الجودة
-          </p>
-        </div>
-
-        <!-- GSAP Slider Container -->
-        <div class="gsap-slider" id="gsap-slider">
-          <div class="slider-track">
-            <!-- Slide 1 -->
-            <div class="slide active" data-slide="0">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 20.jpg" alt="أدوات قطع جلخ 20" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 20</h3>
-                <p class="slide-description">أدوات قطع وجلخ عالية الدقة مقاس 20</p>
-              </div>
-            </div>
-
-            <!-- Slide 2 -->
-            <div class="slide" data-slide="1">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 21.jpg" alt="أدوات قطع جلخ 21" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 21</h3>
-                <p class="slide-description">أدوات قطع وجلخ متقدمة مقاس 21</p>
-              </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="slide" data-slide="2">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 22.jpg" alt="أدوات قطع جلخ 22" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 22</h3>
-                <p class="slide-description">أدوات قطع وجلخ احترافية مقاس 22</p>
-              </div>
-            </div>
-
-            <!-- Slide 4 -->
-            <div class="slide" data-slide="3">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 24.jpg" alt="أدوات قطع جلخ 24" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 24</h3>
-                <p class="slide-description">أدوات قطع وجلخ عالية الجودة مقاس 24</p>
-              </div>
-            </div>
-
-            <!-- Slide 5 -->
-            <div class="slide" data-slide="4">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 25.jpg" alt="أدوات قطع جلخ 25" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 25</h3>
-                <p class="slide-description">أدوات قطع وجلخ متطورة مقاس 25</p>
-              </div>
-            </div>
-
-            <!-- Slide 6 -->
-            <div class="slide" data-slide="5">
-              <div class="slide-image">
-                <img src="./img/أدوات قطع جلخ 26.jpg" alt="أدوات قطع جلخ 26" loading="lazy">
-              </div>
-              <div class="slide-content">
-                <h3 class="slide-title">أدوات قطع جلخ 26</h3>
-                <p class="slide-description">أدوات قطع وجلخ متميزة مقاس 26</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slider Navigation -->
-          <div class="slider-navigation">
-            <button class="nav-btn prev-btn" aria-label="Previous slide">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-            <button class="nav-btn next-btn" aria-label="Next slide">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Slider Indicators -->
-          <div class="slider-indicators">
-            <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
-            <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
-            <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
-            <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
-            <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
-            <button class="indicator" data-slide="5" aria-label="Go to slide 6"></button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section" role="region" aria-labelledby="about-title">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-eyebrow" data-i18n="about-eyebrow">قصة النجاح</span>
-          <h2 id="about-title" class="section-title" data-i18n="about-title">
-            رحلة التميز في عالم الحجر الطبيعي
-          </h2>
-          <p class="section-description" data-i18n="about-desc">
-            منذ أكثر من عقد ونحن نرسم ملامح المستقبل في صناعة مستلزمات الرخام والجرانيت
-          </p>
+          <div class="section-eyebrow" data-i18n="about-eyebrow">قصة النجاح</div>
+          <h2 class="section-title" data-i18n="about-title">رحلة التميز في عالم الحجر الطبيعي</h2>
+          <p class="section-description" data-i18n="about-desc">منذ أكثر من عقد ونحن نرسم ملامح المستقبل في صناعة مستلزمات الرخام والجرانيت</p>
         </div>
 
         <div class="about-content">
           <div class="about-text">
-            <p data-i18n="about-desc1">
-              في مرمرة، نؤمن بأن كل قطعة رخام تحكي قصة، وكل أداة تصنع تحفة فنية. 
-              نحن لا نبيع منتجات فحسب، بل نقدم حلولاً متكاملة تلبي أحلام المهندسين والمصممين.
-            </p>
+            <p data-i18n="about-desc1">في مرمرة، نؤمن بأن كل قطعة رخام تحكي قصة، وكل أداة تصنع تحفة فنية. نحن لا نبيع منتجات فحسب، بل نقدم حلولاً متكاملة تلبي أحلام المهندسين والمصممين.</p>
             
             <div class="about-actions">
-              <a href="#products" class="btn btn-primary" data-i18n="about-cta1">
-                استكشف المجموعات
-              </a>
-              <a href="#contact" class="btn btn-outline" data-i18n="about-cta2">
-                تحدث معنا
-              </a>
+              <a href="#products" class="btn btn-primary" data-i18n="about-cta1">استكشف المجموعات</a>
+              <a href="#contact" class="btn btn-outline" data-i18n="about-cta2">تحدث معنا</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="section stats" role="region" aria-label="Company statistics">
+    <!-- Enhanced Products Section -->
+    <section id="products" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow" data-i18n="products-eyebrow">مجموعاتنا المميزة</div>
+          <h2 class="section-title" data-i18n="products-title">أدوات احترافية لمشاريع استثنائية</h2>
+          <p class="section-description" data-i18n="products-desc">مجموعة شاملة من أفضل الأدوات والمستلزمات مع أسعار تنافسية وجودة مضمونة</p>
+        </div>
+
+        <div class="product-grid">
+          <!-- Machine Cutting Tools -->
+          <div class="card reveal">
+            <img src="./img/ادوات قطع مكينة.jpg" alt="Machine Cutting Tools" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3 class="card-title" data-i18n="cat-machine">أدوات قطع ماكينة</h3>
+              <p class="card-description">أدوات قطع عالية الدقة والجودة للآلات الصناعية المتقدمة.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm filter-trigger" data-filter="machine" data-i18n="view-gallery">استعرض المجموعة</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Grinding Tools -->
+          <div class="card reveal">
+            <img src="./img/ادوات قطع جلخ1.jpg" alt="Grinding Tools" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3 class="card-title" data-i18n="cat-grind">أدوات قطع وجلخ</h3>
+              <p class="card-description">مجموعة شاملة من أدوات الجلخ والقطع عالية الجودة.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm filter-trigger" data-filter="grind" data-i18n="view-gallery">استعرض المجموعة</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Porcelain Tools -->
+          <div class="card reveal">
+            <img src="./img/ادوات بورسلين1.jpg" alt="Porcelain Tools" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3 class="card-title" data-i18n="cat-porcelain">أدوات قطع بورسلين</h3>
+              <p class="card-description">أدوات متخصصة لقطع البورسلين بدقة ونعومة فائقة.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm filter-trigger" data-filter="porcelain" data-i18n="view-gallery">استعرض المجموعة</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Drilling Tools -->
+          <div class="card reveal">
+            <img src="./img/ادوات ثقب رخام وجرانيت وبورسلين.jpg" alt="Drilling Tools" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3 class="card-title" data-i18n="cat-drill">أدوات ثقب متقدمة</h3>
+              <p class="card-description">مثاقب احترافية للرخام والجرانيت والبورسلين.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm filter-trigger" data-filter="drill" data-i18n="view-gallery">استعرض المجموعة</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Miscellaneous Tools -->
+          <div class="card reveal">
+            <img src="./img/ادوات متنوعة اخرى2.jpg" alt="Miscellaneous Tools" class="card-image" loading="lazy">
+            <div class="card-content">
+              <h3 class="card-title" data-i18n="cat-misc">أدوات متنوعة أخرى</h3>
+              <p class="card-description">مجموعة متنوعة من الأدوات المساعدة والمستلزمات.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm filter-trigger" data-filter="misc" data-i18n="view-gallery">استعرض المجموعة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Statistics Section -->
+    <section class="section stats">
       <div class="container">
         <div class="stats-grid">
           <div class="stat-item">
-            <span class="stat-number" data-count="1200">1200+</span>
+            <span class="stat-number" data-count="500">500+</span>
             <span class="stat-label" data-i18n="stat-products">منتج متنوع</span>
           </div>
           <div class="stat-item">
-            <span class="stat-number" data-count="500">500+</span>
+            <span class="stat-number" data-count="1200">1200+</span>
             <span class="stat-label" data-i18n="stat-customers">عميل راضي</span>
           </div>
           <div class="stat-item">
@@ -281,124 +428,103 @@
       </div>
     </section>
 
-    <!-- Products Section -->
-    <section id="products" class="section" role="region" aria-labelledby="products-title">
+    <!-- Enhanced Gallery Section with Interactive Slider -->
+    <section id="slider-section" class="section slider-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-eyebrow" data-i18n="products-eyebrow">مجموعاتنا المميزة</span>
-          <h2 id="products-title" class="section-title" data-i18n="products-title">
-            أدوات احترافية لمشاريع استثنائية
-          </h2>
-          <p class="section-description" data-i18n="products-desc">
-            مجموعة شاملة من أفضل الأدوات والمستلزمات مع أسعار تنافسية وجودة مضمونة
-          </p>
+          <div class="section-eyebrow" data-i18n="slider-eyebrow">معرض الأدوات</div>
+          <h2 class="section-title" data-i18n="slider-title">أدوات قطع الجلخ المتخصصة</h2>
+          <p class="section-description" data-i18n="slider-desc">استكشف مجموعتنا المتميزة من أدوات القطع والجلخ عالية الجودة</p>
         </div>
 
-        <div class="product-grid">
-          <!-- Machine Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات قطع مكينة.jpg" 
-                 alt="أدوات قطع ماكينة" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="cat-machine">أدوات قطع ماكينة</h3>
-              <p class="card-description">
-                أدوات قطع عالية الدقة والجودة للآلات الصناعية المتقدمة
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="machine" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
+        <div class="gsap-slider" id="gsap-slider">
+          <div class="slider-track">
+            <div class="slide active">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 20.jpg" alt="أدوات قطع جلخ 20" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 20</h3>
+                <p class="slide-description">أدوات قطع وجلخ عالية الدقة مقاس 20 مم للاستخدام المهني</p>
+              </div>
+            </div>
+            
+            <div class="slide">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 21.jpg" alt="أدوات قطع جلخ 21" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 21</h3>
+                <p class="slide-description">أدوات قطع وجلخ متقدمة مقاس 21 مم لأفضل النتائج</p>
+              </div>
+            </div>
+            
+            <div class="slide">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 22.jpg" alt="أدوات قطع جلخ 22" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 22</h3>
+                <p class="slide-description">أدوات قطع وجلخ احترافية مقاس 22 مم للمشاريع الكبيرة</p>
+              </div>
+            </div>
+            
+            <div class="slide">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 24.jpg" alt="أدوات قطع جلخ 24" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 24</h3>
+                <p class="slide-description">أدوات قطع وجلخ عالية الجودة مقاس 24 مم للدقة القصوى</p>
+              </div>
+            </div>
+            
+            <div class="slide">
+              <div class="slide-image">
+                <img src="./img/أدوات قطع جلخ 25.jpg" alt="أدوات قطع جلخ 25" loading="lazy">
+              </div>
+              <div class="slide-content">
+                <h3 class="slide-title">أدوات قطع جلخ 25</h3>
+                <p class="slide-description">أدوات قطع وجلخ متطورة مقاس 25 مم لأعلى مستوى من الأداء</p>
               </div>
             </div>
           </div>
 
-          <!-- Grinding Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات قطع جلخ1.jpg" 
-                 alt="أدوات قطع وجلخ" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="cat-grind">أدوات قطع وجلخ</h3>
-              <p class="card-description">
-                مجموعة متكاملة من أدوات القطع والجلخ للرخام والجرانيت
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="grind" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
-              </div>
-            </div>
+          <!-- Slider Navigation -->
+          <div class="slider-navigation">
+            <button class="nav-btn prev-btn" aria-label="Previous slide">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+            <button class="nav-btn next-btn" aria-label="Next slide">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
           </div>
 
-          <!-- Porcelain Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات بورسلين1.jpg" 
-                 alt="أدوات قطع بورسلين" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="cat-porcelain">أدوات قطع بورسلين</h3>
-              <p class="card-description">
-                أدوات متخصصة لقطع وتشكيل البورسلين بدقة عالية
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="porcelain" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Drilling Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات ثقب رخام وجرانيت وبورسلين.jpg" 
-                 alt="أدوات ثقب متقدمة" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="cat-drill">أدوات ثقب متقدمة</h3>
-              <p class="card-description">
-                أدوات ثقب احترافية للحصول على نتائج مثالية
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="drill" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Miscellaneous Tools Card -->
-          <div class="card">
-            <img class="card-image" src="./img/ادوات متنوعة اخرى2.jpg" 
-                 alt="أدوات متنوعة أخرى" loading="lazy" width="400" height="300">
-            <div class="card-content">
-              <h3 class="card-title" data-i18n="cat-misc">أدوات متنوعة أخرى</h3>
-              <p class="card-description">
-                مجموعة متنوعة من الأدوات المساعدة والمستلزمات
-              </p>
-              <div class="card-actions">
-                <button class="btn btn-primary btn-sm filter-trigger" 
-                        data-filter="misc" data-i18n="view-gallery">
-                  استعرض المجموعة
-                </button>
-              </div>
-            </div>
+          <!-- Slider Indicators -->
+          <div class="slider-indicators">
+            <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+            <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+            <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="section" role="region" aria-labelledby="gallery-title">
+    <!-- Enhanced Gallery Section -->
+    <section id="gallery" class="section">
       <div class="container">
         <div class="section-header">
-          <span class="section-eyebrow" data-i18n="gallery-eyebrow">معرض تفاعلي</span>
-          <h2 id="gallery-title" class="section-title" data-i18n="gallery-title">
-            استكشف منتجاتنا بالتفصيل
-          </h2>
+          <div class="section-eyebrow" data-i18n="gallery-eyebrow">معرض تفاعلي</div>
+          <h2 class="section-title" data-i18n="gallery-title">استكشف منتجاتنا بالتفصيل</h2>
         </div>
 
-        <!-- Filter Buttons -->
+        <!-- Enhanced Filter Bar -->
         <div class="filter-bar">
           <button class="filter-btn active" data-filter="all" data-i18n="filter-all">جميع المنتجات</button>
           <button class="filter-btn" data-filter="machine" data-i18n="filter-machine">ماكينة</button>
@@ -417,162 +543,174 @@
       </div>
     </section>
 
-    <!-- Map Section -->
-    <section id="map" class="section" role="region" aria-labelledby="map-title">
+    <!-- Enhanced Map Section (Branches) -->
+    <section id="map" class="section">
       <div class="container">
         <div class="section-header">
-          <h2 id="map-title" class="section-title" data-i18n="map-title">فروعنا في ليبيا</h2>
-          <p class="section-description" data-i18n="map-desc">
-            زوروا أقرب فرع إليكم للحصول على أفضل الخدمات والمنتجات
-          </p>
+          <h2 class="section-title" data-i18n="map-title">فروعنا في ليبيا</h2>
+          <p class="section-description" data-i18n="map-desc">زوروا أقرب فرع إليكم للحصول على أفضل الخدمات والمنتجات</p>
         </div>
 
         <div class="branches-grid">
+          <!-- Misrata Branch -->
           <div class="branch-card">
             <h3 data-i18n="branch-misrata">فرع مصراتة</h3>
-            <p class="branch-address" data-i18n="branch-address-misrata">شارع طرابلس الرئيسي، مصراتة</p>
-            <p class="branch-phone"><span data-i18n="branch-phone">الهاتف</span>: +218-51-234-5678</p>
-            <div class="branch-hours">
-              <span data-i18n="branch-hours">ساعات العمل</span>: <span data-i18n="branch-hours-text">السبت - الخميس</span>: 8:00 ص - 6:00 م
+            <div class="branch-details">
+              <p class="branch-address">📍 شارع طرابلس الرئيسي، مصراتة</p>
+              <p class="branch-phone">📞 الهاتف: +218-51-234-5678</p>
+              <div class="branch-hours">
+                <span data-i18n="working-hours">ساعات العمل:</span>
+                <span>السبت - الخميس: 8:00 ص - 6:00 م</span>
+              </div>
             </div>
           </div>
 
+          <!-- Tripoli Branch -->
           <div class="branch-card">
             <h3 data-i18n="branch-tripoli">فرع طرابلس</h3>
-            <p class="branch-address" data-i18n="branch-address-tripoli">شارع الجمهورية، طرابلس</p>
-            <p class="branch-phone"><span data-i18n="branch-phone">الهاتف</span>: +218-21-123-4567</p>
-            <div class="branch-hours">
-              <span data-i18n="branch-hours">ساعات العمل</span>: <span data-i18n="branch-hours-text">السبت - الخميس</span>: 9:00 ص - 7:00 م
+            <div class="branch-details">
+              <p class="branch-address">📍 شارع الجمهورية، طرابلس</p>
+              <p class="branch-phone">📞 الهاتف: +218-21-987-6543</p>
+              <div class="branch-hours">
+                <span data-i18n="working-hours">ساعات العمل:</span>
+                <span>السبت - الخميس: 8:00 ص - 6:00 م</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section" role="region" aria-labelledby="contact-title">
+    <!-- Enhanced Contact Section -->
+    <section id="contact" class="section">
       <div class="container">
         <div class="section-header">
-          <h2 id="contact-title" class="section-title" data-i18n="contact-title">تواصل معنا</h2>
+          <h2 class="section-title" data-i18n="contact-title">تواصل معنا</h2>
           <p class="section-description" data-i18n="contact-desc">نحن هنا لمساعدتكم في كل ما تحتاجونه</p>
         </div>
 
         <div class="contact-content">
+          <!-- Contact Information -->
           <div class="contact-info">
             <div class="contact-item">
-              <h4 data-i18n="contact-phone">الهاتف</h4>
+              <h4 data-i18n="phone">الهاتف</h4>
               <p>+218-51-234-5678</p>
-              <p>+218-21-123-4567</p>
+              <p>+218-21-987-6543</p>
             </div>
-
+            
             <div class="contact-item">
-              <h4 data-i18n="contact-email">البريد الإلكتروني</h4>
+              <h4 data-i18n="email">البريد الإلكتروني</h4>
               <p>info@marmara-supplies.ly</p>
               <p>sales@marmara-supplies.ly</p>
             </div>
-
+            
             <div class="contact-item">
-              <h4 data-i18n="contact-address">العنوان</h4>
-              <p data-i18n="contact-address-text">شارع طرابلس الرئيسي، مصراتة، ليبيا</p>
+              <h4 data-i18n="address">العنوان</h4>
+              <p>شارع طرابلس الرئيسي، مصراتة، ليبيا</p>
             </div>
           </div>
 
-          <form class="contact-form">
+          <!-- Contact Form -->
+          <form class="contact-form" id="contact-form" novalidate>
             <div class="form-group">
-              <label for="name" data-i18n="form-name">الاسم الكامل</label>
+              <label for="name">الاسم الكامل</label>
               <input type="text" id="name" name="name" required>
             </div>
-
+            
             <div class="form-group">
-              <label for="email" data-i18n="form-email">البريد الإلكتروني</label>
+              <label for="email">البريد الإلكتروني</label>
               <input type="email" id="email" name="email" required>
             </div>
-
+            
             <div class="form-group">
-              <label for="phone" data-i18n="form-phone">رقم الهاتف</label>
+              <label for="phone">رقم الهاتف</label>
               <input type="tel" id="phone" name="phone">
             </div>
-
+            
             <div class="form-group">
-              <label for="message" data-i18n="form-message">الرسالة</label>
+              <label for="message">الرسالة</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
-
-            <button type="submit" class="btn btn-primary" data-i18n="form-submit">إرسال الرسالة</button>
+            
+            <button type="submit" class="btn btn-primary btn-lg">إرسال الرسالة</button>
           </form>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Enhanced Footer with Social Media -->
-  <footer class="site-footer">
+  <!-- Enhanced Footer -->
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-content">
+        <!-- Footer Brand -->
         <div class="footer-brand">
           <div class="footer-logo">
-            <img src="./img/logo1.jpg" alt="Marmara Logo">
+            <img src="./img/logo1.jpg" alt="Marmara Logo" width="60" height="60" loading="lazy">
           </div>
-          <h3>مرمرة</h3>
-          <p data-i18n="footer-company-desc">
-            شركة رائدة في توفير أدوات ومستلزمات الرخام والجرانيت بأعلى معايير الجودة والاحترافية
-          </p>
+          <h3>مرمرة™</h3>
+          <p data-i18n="footer-desc">شركة رائدة في توفير أدوات ومستلزمات الرخام والجرانيت بأعلى معايير الجودة والاحترافية</p>
         </div>
 
+        <!-- Footer Links -->
         <div class="footer-links">
           <div class="footer-section">
-            <h4 data-i18n="footer-quick-links">الروابط السريعة</h4>
+            <h4>روابط سريعة</h4>
             <ul>
-              <li><a href="#home" data-i18n="nav-home">الرئيسية</a></li>
-              <li><a href="#about" data-i18n="nav-about">من نحن</a></li>
-              <li><a href="#products" data-i18n="nav-products">المنتجات</a></li>
-              <li><a href="#gallery" data-i18n="nav-gallery">المعارض</a></li>
-              <li><a href="#contact" data-i18n="nav-contact">تواصل معنا</a></li>
+              <li><a href="#home">الرئيسية</a></li>
+              <li><a href="#about">من نحن</a></li>
+              <li><a href="#products">المنتجات</a></li>
+              <li><a href="#gallery">المعارض</a></li>
+              <li><a href="#contact">تواصل معنا</a></li>
             </ul>
           </div>
-
+          
           <div class="footer-section">
-            <h4 data-i18n="footer-products">المنتجات</h4>
+            <h4>المنتجات</h4>
             <ul>
-              <li data-i18n="cat-machine">أدوات قطع ماكينة</li>
-              <li data-i18n="cat-grind">أدوات قطع وجلخ</li>
-              <li data-i18n="cat-porcelain">أدوات قطع بورسلين</li>
-              <li data-i18n="cat-drill">أدوات ثقب متقدمة</li>
-              <li data-i18n="cat-misc">أدوات متنوعة أخرى</li>
+              <li>أدوات قطع ماكينة</li>
+              <li>أدوات قطع وجلخ</li>
+              <li>أدوات قطع بورسلين</li>
+              <li>أدوات ثقب متقدمة</li>
+              <li>أدوات متنوعة أخرى</li>
             </ul>
           </div>
         </div>
 
+        <!-- Newsletter -->
         <div class="footer-newsletter">
-          <h4 data-i18n="footer-newsletter">اشترك في نشرتنا</h4>
-          <p data-i18n="footer-newsletter-desc">احصل على آخر الأخبار والعروض الخاصة</p>
+          <h4 data-i18n="newsletter-title">اشترك في نشرتنا</h4>
+          <p data-i18n="newsletter-desc">احصل على آخر الأخبار والعروض الخاصة</p>
           <form class="newsletter-form">
             <div class="newsletter-input-group">
-              <input type="email" placeholder="أدخل بريدك الإلكتروني" data-i18n-placeholder="footer-newsletter-placeholder" required>
-              <button type="submit" class="btn btn-primary" data-i18n="footer-newsletter-btn">اشترك</button>
+              <input type="email" placeholder="أدخل بريدك الإلكتروني" data-i18n="email-placeholder" required>
+              <button type="submit" class="btn btn-primary btn-sm" data-i18n="subscribe">اشترك</button>
             </div>
           </form>
         </div>
       </div>
 
+      <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <p>&copy; 2025 مرمرة. <span data-i18n="footer-copyright">جميع الحقوق محفوظة</span>.</p>
+        <p>&copy; 2025 <span>مرمرة لمستلزمات الرخام والجرانيت</span>. جميع الحقوق محفوظة.</p>
+        
+        <!-- Social Media Links -->
         <div class="footer-social">
-          <a href="https://www.facebook.com/your-facebook-page" target="_blank" aria-label="Facebook" class="social-btn facebook-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <a href="#" aria-label="Facebook" class="social-btn facebook-btn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
             <span>Facebook</span>
           </a>
-          <a href="https://www.instagram.com/your-instagram-username" target="_blank" aria-label="Instagram" class="social-btn instagram-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          <a href="#" aria-label="Instagram" class="social-btn instagram-btn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.987 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.648.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.596-3.205-1.533l1.784-1.016c.414.512 1.046.849 1.421.849.639 0 1.199-.520 1.199-1.297 0-.777-.56-1.266-1.199-1.266-.375 0-1.007.307-1.421.849L5.244 11.55c.757-.937 1.908-1.533 3.205-1.533 2.314 0 4.19 1.876 4.19 4.19s-1.876 4.19-4.19 4.19z"/>
             </svg>
             <span>Instagram</span>
           </a>
-          <a href="https://wa.me/218512345678" target="_blank" aria-label="WhatsApp" class="social-btn whatsapp-btn">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          <a href="#" aria-label="WhatsApp" class="social-btn whatsapp-btn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.405 3.488"/>
             </svg>
             <span>WhatsApp</span>
           </a>
@@ -581,21 +719,35 @@
     </div>
   </footer>
 
-  <!-- Mobile Floating Social Buttons -->
-  <div class="floating-social mobile-only">
-    <a href="https://www.facebook.com/your-facebook-page" target="_blank" class="floating-social-btn facebook" aria-label="Facebook">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/your-instagram-username" target="_blank" class="floating-social-btn instagram" aria-label="Instagram">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- JavaScript -->
-  <script src="./js/main.js"></script>
+  <!-- Enhanced Scripts -->
+  <script src="./js/main.js" defer></script>
+  
+  <!-- Enhanced Performance Script -->
+  <script>
+    // Preload critical images
+    const criticalImages = [
+      './img/logo1.jpg',
+      './img/bg-main.jpg',
+      './img/ادوات قطع مكينة.jpg',
+      './img/ادوات قطع جلخ1.jpg'
+    ];
+    
+    criticalImages.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+    });
+    
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(registration => console.log('SW registered'))
+          .catch(registrationError => console.log('SW registration failed'));
+      });
+    }
+  </script>
 </body>
 </html>
