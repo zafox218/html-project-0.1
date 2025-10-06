@@ -1,6 +1,10 @@
-/* Enhanced Design System - Modern 2025 - Updated with Red Text */
+/* =================================================================== */
+/* MARMARA ENHANCED DESIGN SYSTEM - OPTIMIZED COLOR SCHEME 2025      */
+/* =================================================================== */
+
+/* Enhanced Design System - Modern 2025 - Optimized Colors */
 :root {
-  /* Enhanced Color Palette with Red Text Theme */
+  /* Enhanced Color Palette - Fixed Color Scheme */
   --color-primary: #dc2626;
   --primary-50: #fef2f2;
   --primary-100: #fee2e2;
@@ -38,14 +42,14 @@
   --neutral-800: #262626;
   --neutral-900: #171717;
 
-  /* UPDATED: Enhanced Semantic Colors with Red Text */
+  /* FIXED: Balanced Semantic Colors */
   --color-background: #ffffff;
-  --color-surface: #fafafa;
-  --color-text: #dc2626; /* Changed from dark to red */
-  --color-text-muted: #b91c1c; /* Changed from gray to darker red */
-  --color-text-light: #f87171; /* Changed from light gray to light red */
-  --color-border: #fee2e2; /* Changed to light red border */
-  --color-border-light: #fef2f2;
+  --color-surface: #f8fafc;
+  --color-text: #1f2937; /* Dark text for readability */
+  --color-text-muted: #6b7280; /* Gray for secondary text */
+  --color-text-light: #9ca3af; /* Light gray for subtle text */
+  --color-border: #e5e7eb; /* Light gray borders */
+  --color-border-light: #f3f4f6;
   --color-accent: #dc2626;
   --accent-dark-red: #b91c1c;
   
@@ -59,7 +63,7 @@
   --gradient-primary: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
   --gradient-secondary: linear-gradient(135deg, #1f2937 0%, #111827 100%);
   --gradient-accent: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
-  --gradient-hero: linear-gradient(135deg, rgba(220,38,38,0.9) 0%, rgba(31,41,55,0.8) 100%);
+  --gradient-hero: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
   --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
 
   /* Enhanced Shadow System */
@@ -187,9 +191,9 @@
   :root {
     --color-background: #0f172a;
     --color-surface: #1e293b;
-    --color-text: #ef4444; /* Red text for dark mode too */
-    --color-text-muted: #f87171; /* Light red for dark mode */
-    --color-text-light: #fca5a5; /* Very light red for dark mode */
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-text-light: #64748b;
     --color-border: #374151;
     --color-border-light: #4b5563;
   }
@@ -212,18 +216,18 @@
 /* Enhanced High Contrast Support */
 @media (prefers-contrast: high) {
   :root {
-    --color-text: #dc2626; /* Keep red text in high contrast */
-    --color-text-muted: #b91c1c;
-    --color-border: #dc2626;
-    --shadow-md: 0 4px 6px -1px rgba(220, 38, 38, 0.3);
-    --shadow-lg: 0 10px 15px -3px rgba(220, 38, 38, 0.3);
+    --color-text: #000000;
+    --color-text-muted: #333333;
+    --color-border: #000000;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
 }
 
 /* Enhanced Print Styles */
 @media print {
   :root {
-    --color-text: #000000; /* Black text for printing */
+    --color-text: #000000;
     --color-text-muted: #333333;
     --color-background: #ffffff;
     --color-surface: #ffffff;

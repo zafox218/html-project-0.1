@@ -1259,6 +1259,9 @@ async init() {
     }
   }
   
+
+
+  
   loadSavedLanguage() {
     const savedLang = localStorage.getItem('preferred-language');
     if (savedLang && savedLang !== this.currentLanguage) {
