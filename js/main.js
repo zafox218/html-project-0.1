@@ -1,142 +1,120 @@
 // Enhanced Gallery Data with all product categories
 const galleryData = {
+  //------------------------------ادوات قطع مكينة.--------------------------------------
   machine: [
     { 
-      image: './img/ادوات قطع مكينة.jpg', 
+      image: './img/3.JPG', 
       title: 'أدوات قطع ماكينة 1',
       titleEn: 'Machine Cutting Tools 1',
       description: 'أدوات قطع عالية الدقة للآلات الصناعية',
       descriptionEn: 'High-precision cutting tools for industrial machines'
     },
     { 
-      image: './img/ادوات قطع مكينة2.jpg', 
+      image: './img/4.JPG', 
       title: 'أدوات قطع ماكينة 2',
       titleEn: 'Machine Cutting Tools 2',
       description: 'أدوات قطع متقدمة للاستخدام المهني',
       descriptionEn: 'Advanced cutting tools for professional use'
     },
     { 
-      image: './img/ادوات قطع مكينة3.jpg', 
+      image: './img/28.JPG', 
       title: 'أدوات قطع ماكينة 3',
       titleEn: 'Machine Cutting Tools 3',
       description: 'مجموعة شاملة من أدوات القطع الآلي',
       descriptionEn: 'Comprehensive range of automatic cutting tools'
     }
   ],
+  //----------------------------------ادوات قطع جلخ1.---------------------------------------------
   grind: [
     { 
-      image: './img/ادوات قطع جلخ1.jpg', 
+      image: './img/29.JPG', 
       title: 'أدوات قطع جلخ 1',
       titleEn: 'Grinding & Cutting Tools 1',
       description: 'أدوات جلخ عالية الجودة للرخام والجرانيت',
       descriptionEn: 'High-quality grinding tools for marble and granite'
     },
     { 
-      image: './img/أدوات قطع جلخ 20.jpg', 
+      image: './img/24.JPG', 
       title: 'أدوات قطع جلخ 20',
       titleEn: 'Grinding & Cutting Tools 20',
       description: 'أدوات قطع وجلخ عالية الدقة مقاس 20',
       descriptionEn: 'High-precision cutting and grinding tools size 20'
     },
     { 
-      image: './img/أدوات قطع جلخ 21.jpg', 
+      image: './img/23.JPG', 
       title: 'أدوات قطع جلخ 21',
       titleEn: 'Grinding & Cutting Tools 21',
       description: 'أدوات قطع وجلخ متقدمة مقاس 21',
       descriptionEn: 'Advanced cutting and grinding tools size 21'
     },
-    { 
-      image: './img/أدوات قطع جلخ 22.jpg', 
-      title: 'أدوات قطع جلخ 22',
-      titleEn: 'Grinding & Cutting Tools 22',
-      description: 'أدوات قطع وجلخ احترافية مقاس 22',
-      descriptionEn: 'Professional cutting and grinding tools size 22'
-    },
-    { 
-      image: './img/أدوات قطع جلخ 24.jpg', 
-      title: 'أدوات قطع جلخ 24',
-      titleEn: 'Grinding & Cutting Tools 24',
-      description: 'أدوات قطع وجلخ عالية الجودة مقاس 24',
-      descriptionEn: 'High-quality cutting and grinding tools size 24'
-    },
-    { 
-      image: './img/أدوات قطع جلخ 25.jpg', 
-      title: 'أدوات قطع جلخ 25',
-      titleEn: 'Grinding & Cutting Tools 25',
-      description: 'أدوات قطع وجلخ متطورة مقاس 25',
-      descriptionEn: 'Advanced cutting and grinding tools size 25'
-    },
-    { 
-      image: './img/أدوات قطع جلخ 26.jpg', 
-      title: 'أدوات قطع جلخ 26',
-      titleEn: 'Grinding & Cutting Tools 26',
-      description: 'أدوات قطع وجلخ متميزة مقاس 26',
-      descriptionEn: 'Premium cutting and grinding tools size 26'
-    }
+   
   ],
+  //------------------------------ادوات بورسلين1.--------------------------------------------------
   porcelain: [
     { 
-      image: './img/ادوات بورسلين1.jpg', 
+      image: './img/13.JPG', 
       title: 'أدوات قطع بورسلين 1',
       titleEn: 'Porcelain Cutting Tools 1',
       description: 'أدوات متخصصة لقطع البورسلين بدقة عالية',
       descriptionEn: 'Specialized tools for high-precision porcelain cutting'
     },
     { 
-      image: './img/ادوات بورسلين2.jpg', 
+      image: './img/14.JPG', 
       title: 'أدوات قطع بورسلين 2',
       titleEn: 'Porcelain Cutting Tools 2',
       description: 'مجموعة متقدمة لتشكيل البورسلين',
       descriptionEn: 'Advanced set for porcelain shaping'
     },
     { 
-      image: './img/ادوات بورسلين3.jpg', 
+      image: './img/22.JPG', 
       title: 'أدوات قطع بورسلين 3',
       titleEn: 'Porcelain Cutting Tools 3',
       description: 'أدوات احترافية للبورسلين عالي الجودة',
       descriptionEn: 'Professional tools for high-quality porcelain'
     }
   ],
+  //-------------------------------/ادوات ثقب رخام وجرانيت وبورسلين.-------------------------------------------------------
   drill: [
     { 
-      image: './img/ادوات ثقب رخام وجرانيت وبورسلين.jpg', 
+      image: './img/', 
       title: 'أدوات ثقب رخام وجرانيت',
       titleEn: 'Marble & Granite Drilling Tools',
       description: 'أدوات ثقب احترافية للحصول على نتائج مثالية',
       descriptionEn: 'Professional drilling tools for perfect results'
     },
     { 
-      image: './img/ادوات ثقب2.jpg', 
+      image: './img/', 
       title: 'أدوات ثقب متقدمة 2',
       titleEn: 'Advanced Drilling Tools 2',
       description: 'مثاقب عالية الدقة لجميع أنواع الحجر',
       descriptionEn: 'High-precision drills for all stone types'
     },
     { 
-      image: './img/ادوات ثقب3.jpg', 
+      image: './img/', 
       title: 'أدوات ثقب متخصصة 3',
       titleEn: 'Specialized Drilling Tools 3',
       description: 'حلول ثقب شاملة للمشاريع الكبيرة',
       descriptionEn: 'Comprehensive drilling solutions for large projects'
     }
   ],
+  //------------------------ادوات متنوعة -----------------------------------------------------
   misc: [
     { 
-      image: './img/ادوات متنوعة اخرى2.jpg', 
+      image: './img/18.JPG', 
       title: 'أدوات متنوعة أخرى',
       titleEn: 'Miscellaneous Tools',
       description: 'مجموعة متنوعة من الأدوات المساعدة والمستلزمات',
       descriptionEn: 'Various auxiliary tools and supplies'
     },
     { 
-      image: './img/ادوات متنوعة2.jpg', 
+      image: './img/37.JPG', 
       title: 'مستلزمات إضافية',
       titleEn: 'Additional Supplies',
       description: 'أدوات مساعدة لتحسين جودة العمل',
       descriptionEn: 'Auxiliary tools to improve work quality'
     },
     { 
-      image: './img/ادوات متنوعة3.jpg', 
+      image: './img/35.JPG', 
       title: 'معدات تكميلية',
       titleEn: 'Complementary Equipment',
       description: 'مجموعة شاملة من المعدات التكميلية',
