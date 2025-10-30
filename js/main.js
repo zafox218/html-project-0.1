@@ -4,48 +4,48 @@ const galleryData = {
   machine: [
     { 
       image: './img/3.JPG', 
-      title: 'أدوات قطع ماكينة 1',
-      titleEn: 'Machine Cutting Tools 1',
-      description: 'أدوات قطع عالية الدقة للآلات الصناعية',
-      descriptionEn: 'High-precision cutting tools for industrial machines'
+      title: '',
+      titleEn:'',
+      description: '  ',
+      descriptionEn: ''
     },
     { 
       image: './img/4.JPG', 
-      title: 'أدوات قطع ماكينة 2',
-      titleEn: 'Machine Cutting Tools 2',
-      description: 'أدوات قطع متقدمة للاستخدام المهني',
-      descriptionEn: 'Advanced cutting tools for professional use'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/28.JPG', 
-      title: 'أدوات قطع ماكينة 3',
-      titleEn: 'Machine Cutting Tools 3',
-      description: 'مجموعة شاملة من أدوات القطع الآلي',
-      descriptionEn: 'Comprehensive range of automatic cutting tools'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     }
   ],
   //----------------------------------ادوات قطع جلخ1.---------------------------------------------
   grind: [
     { 
       image: './img/29.JPG', 
-      title: 'أدوات قطع جلخ 1',
-      titleEn: 'Grinding & Cutting Tools 1',
-      description: 'أدوات جلخ عالية الجودة للرخام والجرانيت',
-      descriptionEn: 'High-quality grinding tools for marble and granite'
+      title:'',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/24.JPG', 
-      title: 'أدوات قطع جلخ 20',
-      titleEn: 'Grinding & Cutting Tools 20',
-      description: 'أدوات قطع وجلخ عالية الدقة مقاس 20',
-      descriptionEn: 'High-precision cutting and grinding tools size 20'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/23.JPG', 
-      title: 'أدوات قطع جلخ 21',
-      titleEn: 'Grinding & Cutting Tools 21',
-      description: 'أدوات قطع وجلخ متقدمة مقاس 21',
-      descriptionEn: 'Advanced cutting and grinding tools size 21'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
    
   ],
@@ -53,72 +53,72 @@ const galleryData = {
   porcelain: [
     { 
       image: './img/13.JPG', 
-      title: 'أدوات قطع بورسلين 1',
-      titleEn: 'Porcelain Cutting Tools 1',
-      description: 'أدوات متخصصة لقطع البورسلين بدقة عالية',
-      descriptionEn: 'Specialized tools for high-precision porcelain cutting'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/14.JPG', 
-      title: 'أدوات قطع بورسلين 2',
-      titleEn: 'Porcelain Cutting Tools 2',
-      description: 'مجموعة متقدمة لتشكيل البورسلين',
-      descriptionEn: 'Advanced set for porcelain shaping'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/22.JPG', 
-      title: 'أدوات قطع بورسلين 3',
-      titleEn: 'Porcelain Cutting Tools 3',
-      description: 'أدوات احترافية للبورسلين عالي الجودة',
-      descriptionEn: 'Professional tools for high-quality porcelain'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     }
   ],
   //-------------------------------/ادوات ثقب رخام وجرانيت وبورسلين.-------------------------------------------------------
   drill: [
     { 
       image: './img/', 
-      title: 'أدوات ثقب رخام وجرانيت',
-      titleEn: 'Marble & Granite Drilling Tools',
-      description: 'أدوات ثقب احترافية للحصول على نتائج مثالية',
-      descriptionEn: 'Professional drilling tools for perfect results'
+     title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/', 
-      title: 'أدوات ثقب متقدمة 2',
-      titleEn: 'Advanced Drilling Tools 2',
-      description: 'مثاقب عالية الدقة لجميع أنواع الحجر',
-      descriptionEn: 'High-precision drills for all stone types'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/', 
-      title: 'أدوات ثقب متخصصة 3',
-      titleEn: 'Specialized Drilling Tools 3',
-      description: 'حلول ثقب شاملة للمشاريع الكبيرة',
-      descriptionEn: 'Comprehensive drilling solutions for large projects'
+     title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     }
   ],
   //------------------------ادوات متنوعة -----------------------------------------------------
   misc: [
     { 
       image: './img/18.JPG', 
-      title: 'أدوات متنوعة أخرى',
-      titleEn: 'Miscellaneous Tools',
-      description: 'مجموعة متنوعة من الأدوات المساعدة والمستلزمات',
-      descriptionEn: 'Various auxiliary tools and supplies'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/37.JPG', 
-      title: 'مستلزمات إضافية',
-      titleEn: 'Additional Supplies',
-      description: 'أدوات مساعدة لتحسين جودة العمل',
-      descriptionEn: 'Auxiliary tools to improve work quality'
+      title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     },
     { 
       image: './img/35.JPG', 
-      title: 'معدات تكميلية',
-      titleEn: 'Complementary Equipment',
-      description: 'مجموعة شاملة من المعدات التكميلية',
-      descriptionEn: 'Comprehensive range of complementary equipment'
+     title: '',
+      titleEn: '',
+      description: '',
+      descriptionEn: ''
     }
   ]
 };
@@ -621,9 +621,7 @@ class GalleryManager {
         <div class="gallery-overlay">
           <h5>${this.currentLanguage === 'ar' ? item.title : item.titleEn}</h5>
           <p class="gallery-description">${this.currentLanguage === 'ar' ? item.description : item.descriptionEn}</p>
-          <button class="btn btn-sm btn-primary gallery-view-btn" onclick="galleryManager.openLightbox('${item.image}', '${this.currentLanguage === 'ar' ? item.title.replace(/'/g, "\\'") : item.titleEn.replace(/'/g, "\\'")}', '${this.currentLanguage === 'ar' ? item.description.replace(/'/g, "\\'") : item.descriptionEn.replace(/'/g, "\\'")}')">
-            ${this.currentLanguage === 'ar' ? 'عرض التفاصيل' : 'View Details'}
-          </button>
+         
         </div>
       </div>
     `).join('');
@@ -845,9 +843,9 @@ class MarmaraWebsite {
         
         // About section
         'about-eyebrow': 'Success Story',
-        'about-title': 'Journey of Excellence in Natural Stone World',
-        'about-desc': 'For over a decade, we have been shaping the future of marble and granite supplies industry',
-        'about-desc1': 'At Marmara, we believe that every piece of marble tells a story, and every tool creates a masterpiece. We don\'t just sell products, we provide integrated solutions that fulfill the dreams of engineers and designers.',
+        'about-title': 'Welcome to Marmara Company',
+        'about-desc': 'Your trusted destination for marble and granite supplies in Libya! Since our establishment in 2018, we have been striving to provide products that are distinguished by their quality and elegance.',
+        'about-desc1': 'We not only provide marble and granite supplies, but also professional accessories for technicians and superior adhesives, ensuring that your projects are executed to the highest standards of professionalism.',
         'about-cta1': 'Explore Collections',
         'about-cta2': 'Talk to Us',
         

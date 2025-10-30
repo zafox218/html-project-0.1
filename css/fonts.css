@@ -24,6 +24,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   font-optical-sizing: auto;
 }
+@font-face {
+  font-family: 'BigVesta Arabic Beta';
+  src: url('../fonts/BigVesta-Arabic-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Enhanced Heading Styles */
 .font-display {

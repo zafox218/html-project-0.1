@@ -95,7 +95,7 @@
 
   /* Enhanced Font Family System */
   --font-family-sans: 'Inter', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-family-display: 'Poppins', 'Cairo', 'Inter', system-ui, sans-serif;
+  --font-family-display: 'BigVesta Arabic Beta', 'Cairo', 'Inter', system-ui, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas, 'Liberation Mono', Menlo, Monaco, 'Courier New', monospace;
 
   /* Enhanced Spacing Scale */
@@ -324,6 +324,8 @@ body {
 .skip-link:focus {
   top: 6px;
 }
+
+
 
 /* Enhanced Scroll Progress Indicator */
 .scroll-progress {
@@ -996,7 +998,7 @@ body {
     border-radius: var(--radius-lg);
     transform: scale(1.02);
   }
-  
+  .brand-title
   /* Mobile Language Toggle in Menu */
   .nav-menu .lang-toggle {
     display: flex;
@@ -1151,26 +1153,12 @@ body {
   filter: brightness(1.1);
   border-radius: var(--radius-lg);
 }
+/* Brand Hero Title with BigVesta Arabic Beta */
 
-.brand-hero-title {
-  font-family: var(--font-family-display);
-  font-size: clamp(2rem, 8vw, 4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  margin-bottom: var(--space-4);
-  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  background: linear-gradient(135deg, #ffffff, #f0f0f0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+
 
 .brand-hero-subtitle {
-  font-size: clamp(1rem, 3vw, 1.25rem);
-  margin-bottom: 2rem;
-  opacity: 0.95;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  font-weight: 500;
+  
 }
 
 @media (min-width: 768px) {
@@ -1186,7 +1174,6 @@ body {
   flex-wrap: wrap;
   align-items: center;
 }
-
 @media (min-width: 768px) {
   .brand-hero-actions {
     gap: var(--space-4);
@@ -1319,6 +1306,19 @@ body {
 
 @media (min-width: 768px) {
   .section-description {
+    max-width: 600px;
+  }
+}
+.section-description-fix {
+  font-size: clamp(1rem, 2.5vw, 1.125rem);
+  color: var(--secondary-900);
+  max-width: 90%;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .section-description-fix {
     max-width: 600px;
   }
 }
@@ -4163,14 +4163,6 @@ code::selection, pre::selection {
   z-index: 1;
 }
 
-.clean-bg-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  animation: gentleZoom 25s ease-in-out infinite alternate;
-  filter: brightness(0.75) contrast(1.05) saturate(1.1);
-}
 
 /* Gentle Zoom Animation */
 @keyframes gentleZoom {
@@ -4360,11 +4352,11 @@ code::selection, pre::selection {
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
-
+/* Brand Title with BigVesta Arabic Beta */
 .brand-title {
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-arabic-display);
   font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 800;
+  font-weight: 900;
   margin: 0;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
@@ -4372,8 +4364,10 @@ code::selection, pre::selection {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
+  direction: rtl;
 }
+
 
 .brand-trademark {
   font-size: clamp(1rem, 2vw, 1.5rem);
@@ -4575,4 +4569,124 @@ code::selection, pre::selection {
     background: rgba(0, 0, 0, 0.3);
   }
 }
-brand-hero-subtitle
+
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------------------------------*/
+/* =================================================================== */
+/* BIGVESTA ARABIC BETA FONT IMPORT                                  */
+/* =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+/* BigVesta Arabic Beta - Custom Font */
+@font-face {
+  font-family: 'BigVesta Arabic Beta';
+  src: url('https://cdn.jsdelivr.net/gh/fontsource/fonts@main/fonts/arabic/bigvesta-arabic/files/bigvesta-arabic-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BigVesta Arabic Beta';
+  src: url('https://cdn.jsdelivr.net/gh/fontsource/fonts@main/fonts/arabic/bigvesta-arabic/files/bigvesta-arabic-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BigVesta Arabic Beta';
+  src: url('https://cdn.jsdelivr.net/gh/fontsource/fonts@main/fonts/arabic/bigvesta-arabic/files/bigvesta-arabic-900-normal.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Arabic Version */
+.brand-hero-title.ar {
+  font-family: 'BigVesta Arabic Beta', 'Cairo', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  direction: rtl;
+}
+
+/* English Version */
+.brand-hero-title.en {
+  font-family: 'Poppins', 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  direction: ltr;
+}
+/* Arabic hero title style (used for all languages) */
+.brand-hero-title {
+  font-family: 'BigVesta Arabic Beta', 'Cairo', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  direction: rtl;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+.clean-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: gentleZoom 25s ease-in-out infinite alternate;
+  filter: brightness(0.75) contrast(1.05) saturate(1.1);
+}
+.brand-hero-subtitle {
+  
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  font-weight: 500;
+  color: #e5e7eb;text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.25),   /* soft dark base shadow */
+    0 0 12px #fcb045,                 /* orange glow around text */
+    0 0 24px rgba(252, 176, 69, 0.6); /* subtle extended glow */
+}
+section-description
+/*
+
+
+
+
+
+
+.brand-hero-title {
+  font-family: var(--font-family-arabic-display);
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 900; /* Extra bold for BigVesta --/
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.02em; /* Slight spacing for Arabic --/
+  direction: rtl; /* Right-to-left for Arabic --/
+  text-align: center;
+}
+line 624 button main.js
+
+ 
+          <button class="btn btn-sm btn-primary gallery-view-btn" onclick="galleryManager.openLightbox('${item.image}', '${this.currentLanguage === 'ar' ? item.title.replace(/'/g, "\\'") : item.titleEn.replace(/'/g, "\\'")}', '${this.currentLanguage === 'ar' ? item.description.replace(/'/g, "\\'") : item.descriptionEn.replace(/'/g, "\\'")}')">
+            ${this.currentLanguage === 'ar' ? 'عرض التفاصيل' : 'View Details'}
+          </button>
+          
+*/
+
